@@ -7,9 +7,7 @@ secret = open("secret", "r").readline() # discord client app secret
 
 discord_path = open("discord_command", "r").readline() #this should be the command run to open discord
 
-f = open("dict", "r")
-dict = eval(f.read())
-f.close()
+dict = eval(open("dict", "r").read())
 
 def push_playing(o, DiscordRPC, dict):
     #Get all relevant information
@@ -23,7 +21,7 @@ def push_playing(o, DiscordRPC, dict):
     endtime = int(time.time()) + (o.CurrentTrack.Duration - o.PlayerPosition)
 
     DiscordRPC.update(details=track, state=artist, start=starttime, end=endtime, large_image=artwork_value, large_text=track, small_image="apple_music_icon", small_text="Playing on Apple Music")
-
+    return (track, artist, key_lookup, artwork_value)
 
 o = win32com.client.gencache.EnsureDispatch("iTunes.Application") #connect to the COM of iTunes.Application
 # NOTE: win32com.client.gencache.EnsureDispatch will force open the application if not already open
@@ -40,7 +38,7 @@ while DiscordRPC == False:
         continue
 
 if o.CurrentTrack != None:
-    push_playing(o, DiscordRPC, dict)
+    track, artist, key_lookup, artwork_value = push_playing(o, DiscordRPC, dict)
 else:
     last_pos = 0
 
@@ -52,22 +50,10 @@ while True:
     if o.CurrentTrack != None:
         if new_play == True:
             new_play = False 
-            
-            track = o.CurrentTrack.Name
-            artist = o.CurrentTrack.Artist
-            key_lookup = track + ":" + artist
-            artwork_value = str(dict[key_lookup]) #artwork is directly uploaded to discord developer portal
-
-            #timestamps for computing how far into the song we are
-            starttime = int(time.time()) - o.PlayerPosition
-            endtime = int(time.time()) + (o.CurrentTrack.Duration - o.PlayerPosition)
-
-            #ship it off
-            DiscordRPC.update(details=track, state=artist, start=starttime, end=endtime, large_image=artwork_value, large_text=track, small_image="apple_music_icon", small_text="Playing on Apple Music")
+            track, artist, key_lookup, artwork_value = push_playing(o, DiscordRPC, dict)
 
             last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
         else:
-            
             if track == o.CurrentTrack.Name:
                 print((o.CurrentTrack.Duration - o.PlayerPosition))
                 print(last_pos)
@@ -82,11 +68,11 @@ while True:
                     if last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) > 3:
                         print("UPDATING")
                         paused = False
-                        push_playing(o, DiscordRPC, dict)
+                        track, artist, key_lookup, artwork_value = push_playing(o, DiscordRPC, dict)
                 last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
 
             else:
-                push_playing(o, DiscordRPC, dict)
+                track, artist, key_lookup, artwork_value = push_playing(o, DiscordRPC, dict)
     else:
         DiscordRPC.clear()
         new_play = True
