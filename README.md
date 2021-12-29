@@ -1,6 +1,6 @@
 # iTunesRPC-Remastered
 
-A fork of (claythearc's iTunesRPC repo)[https://github.com/claythearc/iTunesRPC] remastered to be a bit more feature rich.
+A fork of (https://github.com/claythearc/iTunesRPC)[claythearc's iTunesRPC repo] remastered to be a bit more feature rich.
 Inspired by (nint8835's iTunesRichPresence)[https://github.com/nint8835/iTunesRichPresence].
 
 ## IMPORTANT NOTE
