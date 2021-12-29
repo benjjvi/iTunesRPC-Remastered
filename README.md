@@ -8,12 +8,12 @@ To get the project to work, you must make an application in the [Discord Develop
 application ID into a file named "secret" without quotation marks.
 
 Original Features:
-*Shows currently playing song
-*Shows songs artist
-*Shows time left
+1. Shows currently playing song
+2. Shows songs artist
+3. Shows time left
 
 
 New Features:
-*Paused message
-*Album Artwork (limited due to discord API)
+1. Paused message
+2. Album Artwork (limited due to discord API)
 
