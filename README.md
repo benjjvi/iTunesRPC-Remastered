@@ -9,9 +9,14 @@ application ID into a file named "secret" without quotation marks.
 
 Original Features:
 Shows currently playing song
+
 Shows songs artist
+
 Shows time left
+
 
 New Features:
 Paused message
+
 Album Artwork (limited due to discord API)
+
