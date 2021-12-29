@@ -8,7 +8,7 @@ import os
 global_pause = 5 #set this higher if you get rate limited often by discord servers (reccomended: 5)
 secret = open("secret", "r").readline() # discord client app secret
 discord_path = open("discord_command", "r").readline() #this should be the command run to open discord
-dict = eval(open("dict", "r").read())
+dict = eval(open("dict", "r", encoding="utf-8").read()) #the encoding is needed for other charsets e.g cyrillic
 
 #DEFINITIONS
 def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
@@ -80,52 +80,78 @@ while DiscordRPC == False:
         continue
 
 # GET LAST POSITION OF TRACK
-last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
+stopped = True
+while stopped:
+    try:
+        last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
 
-#LAST TRACK = THE TRACK THAT IS CURRENTLY PLAYED. IT MAKES SENSE IN 
-#CODE AS LAST_TRACK IS THE TRACK PLAYED {global_pause} SECONDS AGO
-last_track = o.CurrentTrack.Name
-track = o.CurrentTrack.Name
+        #LAST TRACK = THE TRACK THAT IS CURRENTLY PLAYED. IT MAKES SENSE IN 
+        #CODE AS LAST_TRACK IS THE TRACK PLAYED {global_pause} SECONDS AGO
+        last_track = o.CurrentTrack.Name
+        track = o.CurrentTrack.Name
+        stopped = False
+    except Exception:
+        DiscordRPC.clear()
+        print(".........................................")
+        print("    iTunes is not playing anything...    ")
+        print(" Waiting for it to play before starting. ")
+        print("            Waiting 3 seconds.           ")
+        print(".........................................")
+        time.sleep(3)
 
 special_push = False # this is used to determine if another function has already pushed
 # to RPC, as we don't want to repeat for loads of different items.
 
+stopped = False
 while 1:
-    print("------------------")
-    # get the last position of the track. used for pause
-    last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
-    time.sleep(global_pause)
-
-    # update the last track to be the variable that was playing 5 seconds ago and 
-    # get the new current track and store it as track
-    last_track = track
-    track = o.CurrentTrack.Name
-
-    print("Last Track: " + last_track)
-    print("Current Track: " + track)
-
-    print("Position Difference: " + str(last_pos - (o.CurrentTrack.Duration - o.PlayerPosition)))
-
-    if last_track != track: # if we changed tracks.
-        special_push = True
-        print("Changed track. Getting regular fetch from push_playing.")
-        track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False) 
-
-    if last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < global_pause-1 and last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) > 0:
-        special_push = True
-        # we are paused
-        print("Paused. Sending pause message to RPC.")
-        track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, True, False)
-    else:
-        paused = False
-
-    if (last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < 0 or last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) > global_pause) and last_track == track:
-        #we have rewound or fast forwarded within the song. let's make sure we account for that when calling push_playing
-        #this could also happen when a new song has started. that is why last_track == track is in this if statement
-        track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, True)
-
-    if special_push == False:
-        track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
+    try:
+        placeholder = o.CurrentTrack
+    except Exception:
+        stopped = True
     
-    special_push = False
+    if stopped == False:
+        print("------------------")
+        # get the last position of the track. used for pause
+        last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
 
+        # update the last track to be the variable that was playing 5 seconds ago and 
+        # get the new current track and store it as track
+        last_track = track
+        track = o.CurrentTrack.Name
+
+        print("Last Track: " + last_track)
+        print("Current Track: " + track)
+
+        print("Position Difference: " + str(last_pos - (o.CurrentTrack.Duration - o.PlayerPosition)))
+
+        if last_track != track: # if we changed tracks.
+            special_push = True
+            print("Changed track. Getting regular fetch from push_playing.")
+            track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False) 
+
+        if last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < global_pause-1 and last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) >= 0:
+            special_push = True
+            # we are paused
+            print("Paused. Sending pause message to RPC.")
+            track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, True, False)
+        else:
+            paused = False
+
+        if (last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < 0 or last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) > global_pause) and last_track == track:
+            #we have rewound or fast forwarded within the song. let's make sure we account for that when calling push_playing
+            #this could also happen when a new song has started. that is why last_track == track is in this if statement
+            track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, True)
+
+        if special_push == False:
+            track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
+        
+        special_push = False
+        time.sleep(global_pause)
+    else:
+        DiscordRPC.clear()
+        print(".........................................")
+        print("    iTunes is not playing anything...    ")
+        print(" Waiting for it to play before starting. ")
+        print("            Waiting 3 seconds.           ")
+        print(".........................................")
+        time.sleep(3)
