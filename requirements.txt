@@ -1,0 +1,2 @@
+PyWin32
+pypresence
