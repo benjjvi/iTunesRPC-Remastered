@@ -1,0 +1,1 @@
+# track, artist, key_lookup, artwork_value, last_pos = push_playing(o, DiscordRPC, dict, last_pos)
