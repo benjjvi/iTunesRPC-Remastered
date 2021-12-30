@@ -4,15 +4,12 @@ import win32com.client
 import time
 import os
 
-# TODO
-# i) add error checking for if discord closes after it is opened
-# ii) add playing/paused indicator in small_image
-
 #VARIABLES
 global_pause = 5 #set this higher if you get rate limited often by discord servers (reccomended: 5)
 secret = open("secret", "r").readline() # discord client app secret
 discord_path = open("discord_command", "r").readline() #this should be the command run to open discord
-dict = eval(open("dict", "r", encoding="utf-8").read()) #the encoding is needed for other charsets e.g cyrillic
+dict = eval(open("dict", "r", encoding="utf-8").read()) #the encoding is needed for other charsets 
+                                                        #e.g cyrillic
 
 buttons = [
     {"label": "View on GitHub", "url": "https://github.com/bildsben/iTunesRPC-Remastered"}    
@@ -57,12 +54,14 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     if paused_track == True:
         if paused != True:
             DiscordRPC.update(details=track, state=artist, large_image=artwork_value, large_text=track, \
-                              small_image="apple_music_icon", small_text="Playing on Apple Music", buttons=buttons)
+                              small_image="apple_music_icon", small_text="Playing on Apple Music", \
+                              buttons=buttons)
             paused = True
     else:
         if last_pos != False:
-            DiscordRPC.update(details=track, state=artist, start=starttime, end=endtime, large_image=artwork_value, large_text=track, \
-                              small_image="apple_music_icon", small_text="Playing on Apple Music", buttons=buttons)
+            DiscordRPC.update(details=track, state=artist, start=starttime, end=endtime, \
+                              large_image=artwork_value, large_text=track, small_image="apple_music_icon", \
+                              small_text="Playing on Apple Music", buttons=buttons)
         else:
             last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
     
@@ -87,7 +86,8 @@ while DiscordRPC == False:
             os.system(discord_path)
             print("Attempting to open Discord.")
             opened = True
-        time.sleep(global_pause+3) #takes a while to open discord on lower end hardware so account for that here
+        time.sleep(global_pause+3) #takes a while to open discord on lower end hardware so account 
+                                   #for that here
         continue
 
 # GET LAST POSITION OF TRACK
