@@ -1,5 +1,4 @@
 # iTunesRPC-Remastered
-
 Discord Rich Presence for iTunes on Windows.
 
 ![The application in use.](/docs/a.png)
@@ -7,6 +6,7 @@ Discord Rich Presence for iTunes on Windows.
 A fork of [claythearc's iTunesRPC repo](https://github.com/claythearc/iTunesRPC) remastered to be a bit more feature rich.
 
 Inspired by [nint8835's iTunesRichPresence repo](https://github.com/nint8835/iTunesRichPresence).
+
 
 ## IMPORTANT NOTE
 To get the project to work, you must make an application in the [Discord Developer Portal](https://discord.com/developers/applications) and copy the
@@ -25,7 +25,6 @@ If this is not your first time adding to the library of artwork, you should set 
 4. Select [add images](/docs/5.png) and add all your images WITHOUT changing the file names. The ```dict``` file holds a copy of each song with the number that corresponds with that song.
 
 ## Features
-
 Original Features:
 1. Shows currently playing song
 2. Shows songs artist
@@ -36,3 +35,6 @@ New Features:
 2. Album Artwork (limited due to discord API)
 3. Error Checking (is Discord open? If not, open it. Is iTunes playing anything? if not, clear rich presence)
 4. Rewind Support (before, rewinding wouldn't modify anything with the client, but now it changes the time left variable.)
+
+## Limitations
+1. Album Artwork has to be manually uploaded, and can only hold up to 298 images at a time (-2 for error and apple music image).
