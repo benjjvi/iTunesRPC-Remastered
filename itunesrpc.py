@@ -104,7 +104,13 @@ special_push = False # this is used to determine if another function has already
 
 stopped = False
 paused = False
+first_run = True
 while 1:
+    if first_run:
+        last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
+        time.sleep(global_pause)
+        first_run = False
+    
     try:
         placeholder = o.CurrentTrack
     except Exception:
@@ -148,7 +154,7 @@ while 1:
                 track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
         
         special_push = False
-        
+
         # get the last position of the track. used for pause
         last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
         time.sleep(global_pause)
