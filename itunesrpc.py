@@ -112,8 +112,6 @@ while 1:
     
     if stopped == False:
         print("------------------")
-        # get the last position of the track. used for pause
-        last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
 
         # update the last track to be the variable that was playing 5 seconds ago and 
         # get the new current track and store it as track
@@ -123,6 +121,8 @@ while 1:
         print("Last Track: " + last_track)
         print("Current Track: " + track)
 
+        print("Last Playhead Position: " + str(last_pos))
+        print("Current Playhead Position: " + str((o.CurrentTrack.Duration - o.PlayerPosition)))
         print("Position Difference: " + str(last_pos - (o.CurrentTrack.Duration - o.PlayerPosition)))
 
         if last_track != track: # if we changed tracks.
@@ -148,6 +148,9 @@ while 1:
                 track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
         
         special_push = False
+        
+        # get the last position of the track. used for pause
+        last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
         time.sleep(global_pause)
     else:
         DiscordRPC.clear()
