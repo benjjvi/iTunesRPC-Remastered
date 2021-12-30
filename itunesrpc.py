@@ -86,8 +86,7 @@ while DiscordRPC == False:
             os.system(discord_path)
             print("Attempting to open Discord.")
             opened = True
-        time.sleep(global_pause+3) #takes a while to open discord on lower end hardware so account 
-                                   #for that here
+        time.sleep(global_pause+3) #takes a while to open discord on lower end hardware so account for that here
         continue
 
 # GET LAST POSITION OF TRACK
@@ -116,6 +115,7 @@ special_push = False # this is used to determine if another function has already
 stopped = False
 paused = False
 first_run = True
+discord_closed = False
 while 1:
     if first_run:
         last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
@@ -126,8 +126,15 @@ while 1:
         placeholder = o.CurrentTrack
     except Exception:
         stopped = True
+
+    try:
+        DiscordRPC.close()
+        DiscordRPC = pypresence.Presence(secret, pipe=0)
+        DiscordRPC.connect()
+    except Exception as e:
+        discord_closed = True
     
-    if stopped == False:
+    if stopped == False and discord_closed == False:
         print("------------------")
 
         # update the last track to be the variable that was playing 5 seconds ago and 
@@ -170,10 +177,26 @@ while 1:
         last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
         time.sleep(global_pause)
     else:
-        DiscordRPC.clear()
-        print(".........................................")
-        print("    iTunes is not playing anything...    ")
-        print(" Waiting for it to play before starting. ")
-        print("            Waiting 3 seconds.           ")
-        print(".........................................")
-        time.sleep(3)
+        if stopped:
+            DiscordRPC.clear()
+            print(".........................................")
+            print("    iTunes is not playing anything...    ")
+            print(" Waiting for it to play before starting. ")
+            print("            Waiting 3 seconds.           ")
+            print(".........................................")
+            time.sleep(3)
+        if discord_closed:
+            DiscordRPC = False
+            opened = False
+            while DiscordRPC == False:
+                try:
+                    DiscordRPC = pypresence.Presence(secret, pipe=0)
+                    DiscordRPC.connect()
+                    print("Hooked to Discord.")
+                except Exception:
+                    if not opened:
+                        os.system(discord_path)
+                        print("Attempting to open Discord.")
+                        opened = True
+                    time.sleep(global_pause+3)
+                    continue
