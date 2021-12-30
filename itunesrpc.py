@@ -79,6 +79,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
         DiscordRPC = False
         opened = False
 
+
         while DiscordRPC == False:
             try:
                 DiscordRPC = pypresence.Presence(secret, pipe=0)
@@ -103,10 +104,10 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
         #Since we may have had Discord closed for a while, we need to update our items.
         #Let's re call this definition, as it ensures we get the most recent values.
         #We can send our original arguments to this. It isn't a massive deal.
-        track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead)
+        DiscordRPC, track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead)
 
     #Finally, regardless of what happened, let's return all our values.
-    return (track, artist, key_lookup, artwork_value, last_pos, paused)
+    return (DiscordRPC, track, artist, key_lookup, artwork_value, last_pos, paused)
 
 #GETTING THE ITUNES COM CONNECTION
 o = win32com.client.gencache.EnsureDispatch("iTunes.Application") #connect to the COM of iTunes.Application
@@ -189,24 +190,24 @@ while 1:
         if last_track != track: # if we changed tracks.
             special_push = True
             print("Changed track. Getting regular fetch from push_playing.")
-            track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False) 
+            DiscordRPC, track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False) 
 
         if not paused:
             if last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < global_pause-1 and last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) >= 0:
                 special_push = True
                 # we are paused
                 print("Paused. Sending pause message to RPC.")
-                track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, True, False)
+                DiscordRPC, track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, True, False)
             else:
                 paused = False
 
             if (last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < 0 or last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) > global_pause) and last_track == track:
                 #we have rewound or fast forwarded within the song. let's make sure we account for that when calling push_playing
                 #this could also happen when a new song has started. that is why last_track == track is in this if statement
-                track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, True)
+                DiscordRPC, track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, True)
 
             if special_push == False:
-                track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
+                DiscordRPC, track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
         
         special_push = False
 
