@@ -46,26 +46,66 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
         starttime = int(time.time()) - o.PlayerPosition
         endtime = int(time.time()) + (o.CurrentTrack.Duration - o.PlayerPosition)
 
-    if moved_playhead:
-        DiscordRPC.clear() #get rid of the current status: the left count won't refresh otherwise.
-        time.sleep(0.1) #if we don't pause for a tiny amount the .update will send, and discord will
-        #forget the .clear command.
+    try:
+        if moved_playhead:
+            DiscordRPC.clear() #get rid of the current status: the left count won't refresh otherwise.
+            time.sleep(0.1) #if we don't pause for a tiny amount the .update will send, and discord will
+            #forget the .clear command.
 
-    if paused_track == True:
-        if paused != True:
-            DiscordRPC.update(details=track, state=artist, large_image=artwork_value, large_text=track, \
-                              small_image="apple_music_icon", small_text="Playing on Apple Music", \
-                              buttons=buttons)
-            paused = True
-    else:
-        if last_pos != False:
-            DiscordRPC.update(details=track, state=artist, start=starttime, end=endtime, \
-                              large_image=artwork_value, large_text=track, small_image="apple_music_icon", \
-                              small_text="Playing on Apple Music", buttons=buttons)
+        if paused_track == True:
+            if paused != True:
+                DiscordRPC.update(details=track, state=artist, large_image=artwork_value, large_text=track, \
+                                small_image="apple_music_icon", small_text="Playing on Apple Music", \
+                                buttons=buttons)
+                paused = True
         else:
-            last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
-    
-    
+            if last_pos != False:
+                DiscordRPC.update(details=track, state=artist, start=starttime, end=endtime, \
+                                large_image=artwork_value, large_text=track, small_image="apple_music_icon", \
+                                small_text="Playing on Apple Music", buttons=buttons)
+            else:
+                last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
+        
+    except Exception as e:
+        #Discord is closed if we error here.
+        #Let's re open it.
+        print("..........................................")
+        print(".           Discord is closed...         .")
+        print(".          Attempting to open it         .")
+        print(". Waiting global_pause+3 seconds before  .")
+        print(".               continuing.              .")
+        print("..........................................")
+
+        DiscordRPC = False
+        opened = False
+
+        while DiscordRPC == False:
+            try:
+                DiscordRPC = pypresence.Presence(secret, pipe=0)
+                DiscordRPC.connect()
+                print("Hooked to Discord.")
+            except Exception:
+                if not opened:
+                    os.system(discord_path)
+                    print("..........................................")
+                    print(".           Discord is closed...         .")
+                    print(".          Attempting to open it         .")
+                    print(". Waiting global_pause+3 seconds before  .")
+                    print(".               continuing.              .")
+                    print("..........................................")
+                    opened = True
+                time.sleep(global_pause+3)
+                continue
+
+        #Now we have re opened Discord, let's post the message to Discord.
+
+        time.sleep(global_pause)
+        #Since we may have had Discord closed for a while, we need to update our items.
+        #Let's re call this definition, as it ensures we get the most recent values.
+        #We can send our original arguments to this. It isn't a massive deal.
+        track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead)
+
+    #Finally, regardless of what happened, let's return all our values.
     return (track, artist, key_lookup, artwork_value, last_pos, paused)
 
 #GETTING THE ITUNES COM CONNECTION
@@ -84,7 +124,12 @@ while DiscordRPC == False:
     except Exception:
         if not opened:
             os.system(discord_path)
-            print("Attempting to open Discord.")
+            print("..........................................")
+            print(".           Discord is closed...         .")
+            print(". Waiting for it to open before starting .")
+            print(". Waiting global_pause+3 seconds before  .")
+            print(".               continuing.              .")
+            print("..........................................")
             opened = True
         time.sleep(global_pause+3) #takes a while to open discord on lower end hardware so account for that here
         continue
@@ -102,11 +147,11 @@ while stopped:
         stopped = False
     except Exception:
         DiscordRPC.clear()
-        print(".........................................")
-        print("    iTunes is not playing anything...    ")
-        print(" Waiting for it to play before starting. ")
-        print("            Waiting 3 seconds.           ")
-        print(".........................................")
+        print("..........................................")
+        print(".    iTunes is not playing anything...   .")
+        print(". Waiting for it to play before starting .")
+        print(".           Waiting 3 seconds.           .")
+        print("..........................................")
         time.sleep(3)
 
 special_push = False # this is used to determine if another function has already pushed
@@ -115,7 +160,6 @@ special_push = False # this is used to determine if another function has already
 stopped = False
 paused = False
 first_run = True
-discord_closed = False
 while 1:
     if first_run:
         last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
@@ -126,15 +170,8 @@ while 1:
         placeholder = o.CurrentTrack
     except Exception:
         stopped = True
-
-    try:
-        DiscordRPC.close()
-        DiscordRPC = pypresence.Presence(secret, pipe=0)
-        DiscordRPC.connect()
-    except Exception as e:
-        discord_closed = True
     
-    if stopped == False and discord_closed == False:
+    if stopped == False:
         print("------------------")
 
         # update the last track to be the variable that was playing 5 seconds ago and 
@@ -179,24 +216,9 @@ while 1:
     else:
         if stopped:
             DiscordRPC.clear()
-            print(".........................................")
-            print("    iTunes is not playing anything...    ")
-            print(" Waiting for it to play before starting. ")
-            print("            Waiting 3 seconds.           ")
-            print(".........................................")
+            print("..........................................")
+            print(".    iTunes is not playing anything...   .")
+            print(". Waiting for it to play before starting .")
+            print(".           Waiting 3 seconds.           .")
+            print("..........................................")
             time.sleep(3)
-        if discord_closed:
-            DiscordRPC = False
-            opened = False
-            while DiscordRPC == False:
-                try:
-                    DiscordRPC = pypresence.Presence(secret, pipe=0)
-                    DiscordRPC.connect()
-                    print("Hooked to Discord.")
-                except Exception:
-                    if not opened:
-                        os.system(discord_path)
-                        print("Attempting to open Discord.")
-                        opened = True
-                    time.sleep(global_pause+3)
-                    continue
