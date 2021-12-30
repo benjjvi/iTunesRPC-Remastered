@@ -168,7 +168,7 @@ while 1:
         first_run = False
     
     try:
-        placeholder = o.CurrentTrack
+        placeholder = o.CurrentTrack.Name #try to get current track name
     except Exception:
         stopped = True
     
