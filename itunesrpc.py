@@ -4,6 +4,10 @@ import win32com.client
 import time
 import os
 
+# TODO
+# i) add error checking for if discord closes after it is opened
+# ii) add playing/paused indicator in small_image
+
 #VARIABLES
 global_pause = 5 #set this higher if you get rate limited often by discord servers (reccomended: 5)
 secret = open("secret", "r").readline() # discord client app secret
@@ -13,6 +17,7 @@ dict = eval(open("dict", "r", encoding="utf-8").read()) #the encoding is needed 
 buttons = [
     {"label": "View on GitHub", "url": "https://github.com/bildsben/iTunesRPC-Remastered"}    
 ]
+
 #DEFINITIONS
 def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     paused = False

@@ -34,5 +34,5 @@ Original Features:
 New Features:
 1. Paused message
 2. Album Artwork (limited due to discord API)
-3. Error Checking (is Discord open? If not, open it.)
+3. Error Checking (is Discord open? If not, open it. Is iTunes playing anything? if not, clear rich presence)
 4. Rewind Support (before, rewinding wouldn't modify anything with the client, but now it changes the time left variable.)
