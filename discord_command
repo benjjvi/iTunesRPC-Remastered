@@ -1,1 +1,1 @@
-"%USERPROFILE%\AppData\Local\Discord\Update.exe" --processStart Discord.exe
+C: && cd %appdata% && cd .. && cd Local\Discord && Update.exe --processStart Discord.exe

@@ -1,5 +1,9 @@
 # iTunesRPC-Remastered
 
+Discord Rich Presence for iTunes on Windows.
+
+![The application in use.](/docs/a.png)
+
 A fork of [claythearc's iTunesRPC repo](https://github.com/claythearc/iTunesRPC) remastered to be a bit more feature rich.
 
 Inspired by [nint8835's iTunesRichPresence repo](https://github.com/nint8835/iTunesRichPresence).

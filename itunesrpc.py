@@ -10,6 +10,9 @@ secret = open("secret", "r").readline() # discord client app secret
 discord_path = open("discord_command", "r").readline() #this should be the command run to open discord
 dict = eval(open("dict", "r", encoding="utf-8").read()) #the encoding is needed for other charsets e.g cyrillic
 
+buttons = [
+    {"label": "View on GitHub", "url": "https://github.com/bildsben/iTunesRPC-Remastered"}    
+]
 #DEFINITIONS
 def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     paused = False
@@ -49,12 +52,12 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     if paused_track == True:
         if paused != True:
             DiscordRPC.update(details=track, state=artist, large_image=artwork_value, large_text=track, \
-                                small_image="apple_music_icon", small_text="Playing on Apple Music")
+                                small_image="apple_music_icon", small_text="Playing on Apple Music", buttons=buttons)
             paused = True
     else:
         if last_pos != False:
             DiscordRPC.update(details=track, state=artist, start=starttime, end=endtime, large_image=artwork_value, large_text=track, \
-                            small_image="apple_music_icon", small_text="Playing on Apple Music")
+                            small_image="apple_music_icon", small_text="Playing on Apple Music", buttons=buttons)
         else:
             last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
     
@@ -68,15 +71,18 @@ print("Hooked to iTunes COM.")
 
 #CONNECTING TO DISCORD
 DiscordRPC = False
+opened = False
 while DiscordRPC == False:
     try:
         DiscordRPC = pypresence.Presence(secret, pipe=0)
         DiscordRPC.connect()
         print("Hooked to Discord.")
     except Exception:
-        os.system(discord_path)
-        print("Attempting to open Discord.")
-        time.sleep(global_pause)
+        if not opened:
+            os.system(discord_path)
+            print("Attempting to open Discord.")
+            opened = True
+        time.sleep(global_pause+3) #takes a while to open discord on lower end hardware so account for that here
         continue
 
 # GET LAST POSITION OF TRACK
