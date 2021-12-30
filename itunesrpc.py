@@ -103,6 +103,7 @@ special_push = False # this is used to determine if another function has already
 # to RPC, as we don't want to repeat for loads of different items.
 
 stopped = False
+paused = False
 while 1:
     try:
         placeholder = o.CurrentTrack
@@ -129,21 +130,22 @@ while 1:
             print("Changed track. Getting regular fetch from push_playing.")
             track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False) 
 
-        if last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < global_pause-1 and last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) >= 0:
-            special_push = True
-            # we are paused
-            print("Paused. Sending pause message to RPC.")
-            track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, True, False)
-        else:
-            paused = False
+        if not paused:
+            if last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < global_pause-1 and last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) >= 0:
+                special_push = True
+                # we are paused
+                print("Paused. Sending pause message to RPC.")
+                track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, True, False)
+            else:
+                paused = False
 
-        if (last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < 0 or last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) > global_pause) and last_track == track:
-            #we have rewound or fast forwarded within the song. let's make sure we account for that when calling push_playing
-            #this could also happen when a new song has started. that is why last_track == track is in this if statement
-            track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, True)
+            if (last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < 0 or last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) > global_pause) and last_track == track:
+                #we have rewound or fast forwarded within the song. let's make sure we account for that when calling push_playing
+                #this could also happen when a new song has started. that is why last_track == track is in this if statement
+                track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, True)
 
-        if special_push == False:
-            track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
+            if special_push == False:
+                track, artist, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
         
         special_push = False
         time.sleep(global_pause)
