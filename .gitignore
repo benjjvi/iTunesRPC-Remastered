@@ -9,4 +9,6 @@ test.py
 
 #builds
 /build/Debug Builds
-__pycache__
+/__pycache__
+/*/__pycache__
+/*/*/__pycache__

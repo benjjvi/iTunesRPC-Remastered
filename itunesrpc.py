@@ -132,6 +132,11 @@ print("Hooked to iTunes COM.")
 DiscordRPC = False
 opened = False
 while DiscordRPC == False:
+    if shutdown_systray:
+        print("No connection to DiscordRPC, so not closing.")
+        systray.shutdown()
+        print("Shutdown the Systray icon.")
+        quit("Shutdown the Python program.")
     try:
         DiscordRPC = pypresence.Presence(secret, pipe=0)
         DiscordRPC.connect()
