@@ -49,4 +49,4 @@ New Features:
 4. Rewind Support (before, rewinding wouldn't modify anything with the client, but now it changes the time left variable.)
 
 ## Limitations
-1. Album Artwork has to be manually uploaded, and can only hold up to 298 images at a time (-2 for error and apple music image).
+1. Album Artwork has to be manually uploaded, and can only hold up to 296 images at a time (-4 for error, apple music icon, play icon and pause icon).
