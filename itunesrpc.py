@@ -41,6 +41,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     #PRINT INFO
     print("Track: " + track)
     print("Artist: " + artist)
+    print("Album: " + album)
     print("Artwork Value: " + artwork_value)
 
     #timestamps for computing how far into the song we are
