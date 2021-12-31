@@ -18,7 +18,10 @@ iTunesRPC_Window.show_startup_screen()
 
 #LOGGING
 #first start: clean log messages and dump systeminfo
-os.system("del log")
+#none of this is automatically uploaded, but it should be 
+#sent within error reports on GitHub, as it may help determine 
+#your issue
+os.system("del log") #delete the old log file.
 log_message("Starting system log dump.")
 log_message("Machine Architecture: " + platform.machine())
 log_message("Machine Version:" + platform.version())
@@ -27,8 +30,8 @@ log_message("Machine Unix Name: " + str(platform.uname()))
 log_message("OS Type: " + platform.system())
 log_message("Processor: " + platform.processor())
 log_message("Total RAM: " + str(round(psutil.virtual_memory().total / (1024.0 **3)))+" GB")
-log_message("End of system logs.")
-log_message("")
+log_message("End of system logs.\n")
+log_message("Starting iTunesRPC logs.")
 
 
 
