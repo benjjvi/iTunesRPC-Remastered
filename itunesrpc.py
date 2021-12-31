@@ -25,6 +25,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
 
     #OTHER INFO
     artist = o.CurrentTrack.Artist
+    album = o.CurrentTrack.Album
     try:
         key_lookup = track + ":" + artist
         artwork_value = str(dict[key_lookup]) #artwork is directly uploaded to discord developer portal
@@ -55,14 +56,14 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
 
         if paused_track == True:
             if paused != True:
-                DiscordRPC.update(details=track, state=artist, large_image=artwork_value, large_text=track, \
+                DiscordRPC.update(details=track, state=artist, large_image=artwork_value, large_text=album, \
                                 small_image="pause", small_text="Paused on Apple Music", \
                                 buttons=buttons)
                 paused = True
         else:
             if last_pos != False:
                 DiscordRPC.update(details=track, state=artist, start=starttime, end=endtime, \
-                                large_image=artwork_value, large_text=track, small_image="play", \
+                                large_image=artwork_value, large_text=album, small_image="play", \
                                 small_text="Playing on Apple Music", buttons=buttons)
             else:
                 last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
@@ -109,7 +110,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
                                                                 dict, last_pos, paused_track, moved_playhead)
 
     #Finally, regardless of what happened, let's return all our values.
-    return (DiscordRPC, track, artist, key_lookup, artwork_value, last_pos, paused)
+    return (DiscordRPC, track, artist, album, key_lookup, artwork_value, last_pos, paused)
 
 # Setting up systray
 def exit_program(systray):
