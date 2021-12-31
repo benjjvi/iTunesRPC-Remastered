@@ -1,2 +1,4 @@
 PyWin32
 pypresence
+psutil
+PyQt5
