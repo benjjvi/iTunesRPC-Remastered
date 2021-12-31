@@ -1,2 +1,3 @@
 TODO
 i) add playing/paused indicator in small_image
+ii) fix bug where if while run loop has not been reached, the tray icon won't work.
