@@ -7,8 +7,7 @@ A fork of [claythearc's iTunesRPC repo](https://github.com/claythearc/iTunesRPC)
 
 Inspired by [nint8835's iTunesRichPresence repo](https://github.com/nint8835/iTunesRichPresence).
 
-Using minimally modified code from [Infinidat's infi.systray module](https://github.com/Infinidat/infi.systray).
-This repo therefore uses their [BSD 3-Clause 'New' or 'Revised' License](https://github.com/Infinidat/infi.systray/blob/develop/LICENSE) 
+Using minimally modified code from [Infinidat's infi.systray module](https://github.com/Infinidat/infi.systray). This repo therefore uses their [BSD 3-Clause 'New' or 'Revised' License](https://github.com/Infinidat/infi.systray/blob/develop/LICENSE) 
 provided within their GitHub repo.
 
 ## LICENSES
