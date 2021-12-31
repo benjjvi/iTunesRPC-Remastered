@@ -56,13 +56,13 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
         if paused_track == True:
             if paused != True:
                 DiscordRPC.update(details=track, state=artist, large_image=artwork_value, large_text=track, \
-                                small_image="apple_music_icon", small_text="Playing on Apple Music", \
+                                small_image="pause", small_text="Paused on Apple Music", \
                                 buttons=buttons)
                 paused = True
         else:
             if last_pos != False:
                 DiscordRPC.update(details=track, state=artist, start=starttime, end=endtime, \
-                                large_image=artwork_value, large_text=track, small_image="apple_music_icon", \
+                                large_image=artwork_value, large_text=track, small_image="play", \
                                 small_text="Playing on Apple Music", buttons=buttons)
             else:
                 last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
