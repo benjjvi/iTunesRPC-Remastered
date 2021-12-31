@@ -1,9 +1,6 @@
 #secret app ID
 secret
 
-#testing files
-test.py
-
 #pngs
 /images/*.png
 
