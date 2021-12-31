@@ -7,6 +7,17 @@ A fork of [claythearc's iTunesRPC repo](https://github.com/claythearc/iTunesRPC)
 
 Inspired by [nint8835's iTunesRichPresence repo](https://github.com/nint8835/iTunesRichPresence).
 
+Using minimally modified code from [Infinidat's infi.systray module](https://github.com/Infinidat/infi.systray).
+This repo therefore uses their [BSD 3-Clause 'New' or 'Revised' License](https://github.com/Infinidat/infi.systray/blob/develop/LICENSE) 
+provided within their GitHub repo.
+
+## LICENSES
+
+This repository contains code from INFIDAT with their infi.systray code. Their license for the code can be found [here](/LICENSES/INFIDAT-License). Additionally, the repository is licenses under its own ```Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)``` License. The simplified version can be found [here](/LICENSES/Simplified-iTunesRPC-License), and the full version can be found [here](/LICENSES/Full-iTunesRPC-License). In the case of a legal dispute, the one applicable by law to the code provided in this software is the [full license](/LICENSES/Full-iTunesRPC-License)
+
+## TROUBLESHOOTING
+
+If you get an error message when the application tries to launch Discord, you may need to change the file named discord_command, even if you downloaded the .ZIP file containing the files .EXE format.
 
 ## IMPORTANT NOTE
 To get the project to work, you must make an application in the [Discord Developer Portal](https://discord.com/developers/applications) and copy the
