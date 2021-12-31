@@ -22,7 +22,7 @@ If you get an error message when the application tries to launch Discord, you ma
 
 ## IMPORTANT NOTE
 To get the project to work, you must make an application in the [Discord Developer Portal](https://discord.com/developers/applications) and copy the
-application ID into a file named ```secret```.
+application ID into a file named ```secret```. You will need to upload all of the images in the ```static``` folder to your Discord Developer Portal application.
 Additionally, you will need to have a file called ```discord_command``` with the command line command that can be used to execute discord from cmd. You can find this by right clicking your discord link on your desktop and copying the target text. 
 
 Furthermore, to get the album artwork, please play your playlist, be it on shuffle or in order, and run the script in the ```images``` folder named ```grabImages.py```. It will download the current playing album artwork, and after 5 seconds, get the current playing album artwork. To do this efficiently, have your finger on the ```FN``` key and press ```F8``` (or whichever key is your keyboards skip song key) to skip songs. Once the command prompt says ```sleeping 5 seconds``` you can skip song. When starting the script, you'll be asked to provide a starting and ending number. If this is the first time running the script, type 1 as the starting number, and the length of your playlist as the ending number. For example, to add the playlist below, I would submit 1 as the starting number and 33 as the final number.
