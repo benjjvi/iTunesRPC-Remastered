@@ -3,6 +3,7 @@ import pypresence
 import win32com.client
 import time
 import os
+from systray.traybar import SysTrayIcon
 
 #VARIABLES
 global_pause = 5 #set this higher if you get rate limited often by discord servers (reccomended: 5)
@@ -109,6 +110,16 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     #Finally, regardless of what happened, let's return all our values.
     return (DiscordRPC, track, artist, key_lookup, artwork_value, last_pos, paused)
 
+# Setting up systray
+def exit_program(systray):
+    global shutdown_systray
+    shutdown_systray = True
+
+menu_options = (("Shutdown iTunesRPC Safely", None, exit_program),)
+systray = SysTrayIcon("icon.ico", "iTunesRPC", menu_options)
+systray.start()
+print("Started Systray icon.")
+
 #GETTING THE ITUNES COM CONNECTION
 o = win32com.client.gencache.EnsureDispatch("iTunes.Application") #connect to the COM of iTunes.Application
 print("Hooked to iTunes COM.")
@@ -161,7 +172,10 @@ special_push = False # this is used to determine if another function has already
 stopped = False
 paused = False
 first_run = True
-while 1:
+
+shutdown_systray = False
+running = True
+while running:
     if first_run:
         last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
         time.sleep(global_pause)
@@ -223,3 +237,14 @@ while 1:
             print(".           Waiting 3 seconds.           .")
             print("..........................................")
             time.sleep(3)
+
+    if shutdown_systray:
+        running = False
+        print("------------------")
+        print("Shutting down.")
+
+DiscordRPC.close()
+print("Closed connection to DiscordRPC.")
+systray.shutdown()
+print("Shutdown the Systray icon.")
+quit("Shutdown the Python program.")
