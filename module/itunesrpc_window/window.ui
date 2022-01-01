@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>671</width>
-    <height>165</height>
+    <width>516</width>
+    <height>238</height>
    </rect>
   </property>
   <property name="cursor">
@@ -24,6 +27,9 @@
    <bool>false</bool>
   </property>
   <property name="animated">
+   <bool>false</bool>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -187,7 +193,7 @@ Remastered.</string>
       <x>200</x>
       <y>120</y>
       <width>321</width>
-      <height>23</height>
+      <height>20</height>
      </rect>
     </property>
     <property name="font">
@@ -208,17 +214,22 @@ Remastered.</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>10</y>
-      <width>131</width>
-      <height>141</height>
+      <x>10</x>
+      <y>160</y>
+      <width>491</width>
+      <height>71</height>
      </rect>
     </property>
-    <property name="text">
-     <string/>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
     </property>
-    <property name="pixmap">
-     <pixmap>../../icon.ico</pixmap>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CHANGES MADE WILL NOT TAKE EFFECT UNTIL &lt;/p&gt;&lt;p&gt;iTunesRPC-Remastered IS RESTARTED.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

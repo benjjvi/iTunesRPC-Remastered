@@ -1,0 +1,117 @@
+{
+ "version": "auto-py-to-exe-configuration_v1",
+ "pyinstallerOptions": [
+  {
+   "optionDest": "noconfirm",
+   "value": true
+  },
+  {
+   "optionDest": "filenames",
+   "value": "D:/!New Development/iTunesRPC-Remastered/itunesrpc.py"
+  },
+  {
+   "optionDest": "onefile",
+   "value": false
+  },
+  {
+   "optionDest": "console",
+   "value": true
+  },
+  {
+   "optionDest": "icon_file",
+   "value": "D:/!New Development/iTunesRPC-Remastered/icon.ico"
+  },
+  {
+   "optionDest": "name",
+   "value": "iTunesRPC-Remastered"
+  },
+  {
+   "optionDest": "ascii",
+   "value": false
+  },
+  {
+   "optionDest": "clean_build",
+   "value": false
+  },
+  {
+   "optionDest": "loglevel",
+   "value": "INFO"
+  },
+  {
+   "optionDest": "strip",
+   "value": false
+  },
+  {
+   "optionDest": "noupx",
+   "value": false
+  },
+  {
+   "optionDest": "disable_windowed_traceback",
+   "value": false
+  },
+  {
+   "optionDest": "embed_manifest",
+   "value": true
+  },
+  {
+   "optionDest": "uac_admin",
+   "value": false
+  },
+  {
+   "optionDest": "uac_uiaccess",
+   "value": false
+  },
+  {
+   "optionDest": "win_private_assemblies",
+   "value": false
+  },
+  {
+   "optionDest": "win_no_prefer_redirects",
+   "value": false
+  },
+  {
+   "optionDest": "bootloader_ignore_signals",
+   "value": false
+  },
+  {
+   "optionDest": "datas",
+   "value": "D:/!New Development/iTunesRPC-Remastered/discord_command;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "D:/!New Development/iTunesRPC-Remastered/dict;."
+  },
+  {
+   "optionDest": "collect_all",
+   "value": "win32com"
+  },
+  {
+   "optionDest": "collect_all",
+   "value": "pypresence"
+  },
+  {
+   "optionDest": "hiddenimports",
+   "value": "pythoncom"
+  },
+  {
+   "optionDest": "binaries",
+   "value": "C:/Users/Ben Voisey/AppData/Local/Programs/Python/Python310/Lib/site-packages/pywin32_system32/pythoncom310.dll;."
+  },
+  {
+   "optionDest": "binaries",
+   "value": "C:/Users/Ben Voisey/AppData/Local/Programs/Python/Python310/Lib/site-packages/pywin32_system32/pywintypes310.dll;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "D:/!New Development/iTunesRPC-Remastered/config;."
+  },
+  {
+   "optionDest": "collect_all",
+   "value": "PyQt5"
+  }
+ ],
+ "nonPyinstallerOptions": {
+  "increaseRecursionLimit": true,
+  "manualArguments": ""
+ }
+}

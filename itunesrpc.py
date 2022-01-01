@@ -11,10 +11,24 @@ import pypresence
 #CUSTOM/MODIFIED LIBRARIES/MODULES
 from module.itrpc_logging import log_message
 from module.systray.traybar import SysTrayIcon
+
+#CONFIGURATION FILES
+f = open("config", "r")
+config = eval(f.read()) #returns dict
+f.close()
+
+#WINDOW
 import module.itunesrpc_window.main as itrpc_window
 
-iTunesRPC_Window = itrpc_window.Window(hidden=True)
-iTunesRPC_Window.show_startup_screen()
+itrpc_window.get_logger(log_message) #send the logger instance
+# main cannot access the logger otherwise.
+itrpc_window.send_logger() 
+# this sends the logger to window_test
+
+#the window can be opened by requesting the window in the system tray
+#show brief message telling user about this.
+if config["show_msg"] == True:
+    itrpc_window.start_welcome()
 
 #LOGGING
 #first start: clean log messages and dump systeminfo
@@ -37,6 +51,11 @@ log_message("Starting iTunesRPC logs.")
 
 #VARIABLES
 global_pause = 5 #set this higher if you get rate limited often by discord servers (reccomended: 5)
+
+if config["slow_mode"] == True:
+    global_pause += 5
+
+
 secret = open("secret", "r").readline() # discord client app secret
 discord_path = open("discord_command", "r").readline() #this should be the command run to open discord
 dict = eval(open("dict", "r", encoding="utf-8").read()) #the encoding is needed for other charsets 
@@ -148,6 +167,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
 
 
 #SYSTRAY DEFINITIONS
+#window definitions defined at start of program.
 def exit_program(systray):
     global shutdown_systray
     shutdown_systray = True
@@ -158,11 +178,9 @@ def toggle_rpc(systray):
     time.sleep(global_pause+1)
     DiscordRPC.clear()
 
-def show_window(systray):
-    pass
 
 #SYSTRAY MENU OPTIONS AND MAKING THE ICON
-menu_options = (("Show Window", None, show_window),("Toggle Rich Presence", None, toggle_rpc),("Shutdown iTunesRPC Safely", None, exit_program),)
+menu_options = (("Show Window", None, itrpc_window.start),("Toggle Rich Presence", None, toggle_rpc),("Shutdown iTunesRPC Safely", None, exit_program),)
 systray = SysTrayIcon("icon.ico", "iTunesRPC", menu_options)
 systray.start()
 log_message("Started Systray icon.")

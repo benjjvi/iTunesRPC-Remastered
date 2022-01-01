@@ -4,7 +4,8 @@ import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-import module.itunesrpc_window.window_test as window
+import module.itunesrpc_window.options as options
+import module.itunesrpc_window.welcome as welcome
 
 def get_logger(log):
     #get logger for wrapper
@@ -13,10 +14,17 @@ def get_logger(log):
     logger("module.itunesrpc_window.main logger active.")
 
 def send_logger():
-    window.get_logger(logger) #pass logger onto the real window
+    options.get_logger(logger) #pass logger onto the real window
+    welcome.get_logger(logger) #pass logger onto the first open window
 
-def start():
+def start_welcome():
+    welc_app = QtWidgets.QApplication(sys.argv)
+    welc = welcome.Logic()
+    welc.show()
+    welc_app.exec_()
+
+def start(self):
     app = QtWidgets.QApplication(sys.argv)
-    win = window.Logic()
+    win = options.Logic()
     win.show()
-    sys.exit(app.exec_())
+    app.exec_()

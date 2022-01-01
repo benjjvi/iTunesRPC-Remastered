@@ -9,7 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import os
+
+import os, subprocess
 
 def get_logger(log):
     #get logger for window
@@ -21,13 +22,15 @@ def get_logger(log):
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(671, 165)
+        MainWindow.setEnabled(True)
+        MainWindow.resize(516, 238)
         MainWindow.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(".\\../../icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setAnimated(False)
+        MainWindow.setUnifiedTitleAndToolBarOnMac(False)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.open_logs = QtWidgets.QPushButton(self.centralwidget)
@@ -82,7 +85,7 @@ class Ui_MainWindow(object):
         self.album.setObjectName("album")
         self.song_bar = QtWidgets.QProgressBar(self.centralwidget)
         self.song_bar.setEnabled(True)
-        self.song_bar.setGeometry(QtCore.QRect(200, 120, 321, 23))
+        self.song_bar.setGeometry(QtCore.QRect(200, 120, 321, 20))
         font = QtGui.QFont()
         font.setPointSize(1)
         self.song_bar.setFont(font)
@@ -91,9 +94,11 @@ class Ui_MainWindow(object):
         self.song_bar.setFormat("")
         self.song_bar.setObjectName("song_bar")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(530, 10, 131, 141))
-        self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(".\\../../icon.ico"))
+        self.label.setGeometry(QtCore.QRect(10, 160, 491, 71))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -110,16 +115,42 @@ class Ui_MainWindow(object):
         self.song.setText(_translate("MainWindow", "Song: "))
         self.artist.setText(_translate("MainWindow", "Artist: "))
         self.album.setText(_translate("MainWindow", "Album: "))
+        self.label.setText(_translate("MainWindow", "<html><head/><body><p>CHANGES MADE <b>WILL NOT</b> TAKE EFFECT UNTIL </p><p><i>iTunesRPC-Remastered</i> IS RESTARTED.</p></body></html>"))
 
 class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
+        proc = subprocess.Popen("cd", shell=True, stdout=subprocess.PIPE)
+        self.get_to_root_dir = proc.stdout.read().decode("utf-8").replace("\r\n", "")
+        logger("[GUI] Root Directory: " + self.get_to_root_dir)
+
         QtWidgets.QMainWindow.__init__(self, parent=parent)
         self.setupUi(self)
         self.open_logs.clicked.connect(self.open_log)
+        self.slow_connection.stateChanged.connect(self.toggle_slow_connection)
 
     def open_log(self):
-        cmd = "C:\\Windows\\System32\\notepad.exe "
-        cmd = cmd + (os.path.dirname(os.path.realpath(__file__)))
-        cmd = cmd + "\\log"
-        logger("Running command: " + cmd)
-        os.system(cmd)
+        cd_cmd = "C:\\Windows\\System32\\notepad.exe " + self.get_to_root_dir + '\\log'
+        logger("[GUI] Running command: " + cd_cmd)
+        os.system(cd_cmd)
+
+    def toggle_slow_connection(self):
+        path_to_config = self.get_to_root_dir + "\\config"
+        path_to_config = path_to_config.replace("\\\\", "\\")
+        logger("[GUI] Reading config file.")
+        f = open(path_to_config, "r")
+        conf = eval(f.read())
+        f.close()
+        logger("[GUI] Config Info: " + str(conf))
+
+        conf["slow_mode"] = self.slow_connection.isChecked() #if the checkmark is checked we want
+        # slow mode to be enabled, so we can just use the value that isChecked returns.
+        logger("[GUI] Key Stored: conf[\"slow_mode\"] = " + str(self.slow_connection.isChecked()))
+
+        conf_str = str(conf)
+        logger("[GUI] New Config File: " + conf_str)
+
+        logger("[GUI] Writing config file.")
+        f = open(path_to_config, "w")
+        f.write(conf_str)
+        f.close()
+        logger("[GUI] Written config file.")
