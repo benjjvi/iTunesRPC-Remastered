@@ -3,6 +3,7 @@ import os
 import platform  # for log info
 import time
 import psutil # for log info
+import sys #exit at end of program: for compatibility with PyInstaller
 
 #COM AND RPC LIBRARY
 import win32com.client
@@ -16,6 +17,30 @@ from module.systray.traybar import SysTrayIcon
 f = open("config", "r")
 config = eval(f.read()) #returns dict
 f.close()
+
+
+#VARIABLES
+global_pause = 5 #set this higher if you get rate limited often by discord servers (reccomended: 5)
+
+if config["slow_mode"] == True:
+    global_pause += 5
+
+try:
+    secret = open("secret", "r").readline() # discord client app secret
+except Exception:
+    import module.itunesrpc_window.error_no_secret as ens #error no secret (E.001.NS)
+    ens.get_logger(log_message)
+    ens.start()
+    sys.exit()
+
+discord_path = open("discord_command", "r").readline() #this should be the command run to open discord
+dict = eval(open("dict", "r", encoding="utf-8").read()) #the encoding is needed for other charsets 
+                                                        #e.g cyrillic
+shutdown_systray = False
+buttons = [
+    {"label": "View on GitHub", "url": "https://github.com/bildsben/iTunesRPC-Remastered"}    
+]
+
 
 #WINDOW
 import module.itunesrpc_window.main as itrpc_window
@@ -48,22 +73,6 @@ log_message("End of system logs.\n")
 log_message("Starting iTunesRPC logs.")
 
 
-
-#VARIABLES
-global_pause = 5 #set this higher if you get rate limited often by discord servers (reccomended: 5)
-
-if config["slow_mode"] == True:
-    global_pause += 5
-
-
-secret = open("secret", "r").readline() # discord client app secret
-discord_path = open("discord_command", "r").readline() #this should be the command run to open discord
-dict = eval(open("dict", "r", encoding="utf-8").read()) #the encoding is needed for other charsets 
-                                                        #e.g cyrillic
-shutdown_systray = False
-buttons = [
-    {"label": "View on GitHub", "url": "https://github.com/bildsben/iTunesRPC-Remastered"}    
-]
 
 
 
@@ -343,5 +352,5 @@ while running:
 DiscordRPC.close()
 log_message("Closed connection to DiscordRPC.")
 systray.shutdown()
-log_message("Shutdown the Systray icon.")
-quit("Shutdown the Python program.")
+log_message("Shutdown the Systray icon.\nShutting down the Python program.")
+sys.exit()

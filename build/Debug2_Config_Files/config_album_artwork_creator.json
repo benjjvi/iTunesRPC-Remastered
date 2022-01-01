@@ -74,6 +74,18 @@
    "value": false
   },
   {
+   "optionDest": "collect_all",
+   "value": "win32com"
+  },
+  {
+   "optionDest": "collect_all",
+   "value": "pypresence"
+  },
+  {
+   "optionDest": "hiddenimports",
+   "value": "pythoncom"
+  },
+  {
    "optionDest": "binaries",
    "value": "C:/Users/Ben Voisey/AppData/Local/Programs/Python/Python310/Lib/site-packages/pywin32_system32/pythoncom310.dll;."
   },
@@ -82,16 +94,16 @@
    "value": "C:/Users/Ben Voisey/AppData/Local/Programs/Python/Python310/Lib/site-packages/pywin32_system32/pywintypes310.dll;."
   },
   {
-   "optionDest": "datas",
-   "value": "D:/!New Development/iTunesRPC-Remastered/dict;."
+   "optionDest": "collect_all",
+   "value": "PyQt5"
   },
   {
-   "optionDest": "datas",
-   "value": "D:/!New Development/iTunesRPC-Remastered/discord_command;."
+   "optionDest": "binaries",
+   "value": "C:/Users/Ben Voisey/AppData/Local/Programs/Python/Python310/Lib/site-packages/pywin32_system32/pythoncom310.dll;."
   },
   {
-   "optionDest": "datas",
-   "value": "D:/!New Development/iTunesRPC-Remastered/secret;."
+   "optionDest": "binaries",
+   "value": "C:/Users/Ben Voisey/AppData/Local/Programs/Python/Python310/Lib/site-packages/pywin32_system32/pywintypes310.dll;."
   },
   {
    "optionDest": "collect_all",

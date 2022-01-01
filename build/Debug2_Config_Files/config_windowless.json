@@ -75,11 +75,11 @@
   },
   {
    "optionDest": "datas",
-   "value": "D:/!New Development/iTunesRPC-Remastered/dict;."
+   "value": "D:/!New Development/iTunesRPC-Remastered/discord_command;."
   },
   {
    "optionDest": "datas",
-   "value": "D:/!New Development/iTunesRPC-Remastered/discord_command;."
+   "value": "D:/!New Development/iTunesRPC-Remastered/dict;."
   },
   {
    "optionDest": "collect_all",
@@ -106,20 +106,12 @@
    "value": "D:/!New Development/iTunesRPC-Remastered/config;."
   },
   {
-   "optionDest": "hiddenimports",
+   "optionDest": "collect_all",
    "value": "PyQt5"
   },
   {
-   "optionDest": "hiddenimports",
-   "value": "psutil"
-  },
-  {
    "optionDest": "datas",
-   "value": "D:/!New Development/iTunesRPC-Remastered/module;module/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "D:/!New Development/iTunesRPC-Remastered/LICENSES;LICENSES/"
+   "value": "D:/!New Development/iTunesRPC-Remastered/icon.ico;."
   }
  ],
  "nonPyinstallerOptions": {

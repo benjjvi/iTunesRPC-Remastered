@@ -3,9 +3,12 @@
 import win32com.client
 import os, time
 
-f = open("dict", "r", encoding="utf-8")
-dictionary = eval(f.read())
-f.close()
+try:
+    f = open("dict", "r", encoding="utf-8")
+    dictionary = eval(f.read())
+    f.close()
+except Exception:
+    dictionary = {}
 
 run = True
 i = int(input("Start from what number? This will be the number that the first image is saved as e.g entering 34 will save 34.png\n> ")) - 1
