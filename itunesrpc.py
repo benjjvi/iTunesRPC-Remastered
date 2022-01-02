@@ -91,8 +91,8 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
         artwork_value = str(dict[key_lookup]) #artwork is directly uploaded to discord developer portal
     except Exception:
         log_message("This song has not had its artwork uploaded to the Discord Developer Portal.")
-        log_message("Please upload it, then the blue question mark will be gone.")
-        artwork_value = "error"
+        log_message("Please upload it, and the Apple Music Icon will be gone.")
+        artwork_value = "apple_music_icon"
 
     #MODIFY TRACK TO HAVE PAUSED IF PAUSED ON APPLE MUSIC
     if paused_track:
