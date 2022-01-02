@@ -25,9 +25,7 @@ class Ui_MainWindow(object):
         MainWindow.setEnabled(True)
         MainWindow.resize(516, 238)
         MainWindow.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(".\\../../icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        MainWindow.setWindowIcon(icon)
+        self.setWindowIcon(QtGui.QIcon('icon.ico'))
         MainWindow.setAutoFillBackground(False)
         MainWindow.setAnimated(False)
         MainWindow.setUnifiedTitleAndToolBarOnMac(False)
@@ -107,7 +105,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "iTunesRPC Remastered"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "iTunesRPC-Remastered Settings"))
         self.open_logs.setText(_translate("MainWindow", "Open the log file \n" "in Windows Notepad."))
         self.slow_connection.setText(_translate("MainWindow", "Tick this if your computer\n" "is below the minimum \n" "recommended specs to \n" "run iTunesRPC\n" "Remastered."))
         self.settings_label.setText(_translate("MainWindow", "SETTINGS"))
