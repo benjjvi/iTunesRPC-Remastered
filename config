@@ -1,1 +1,1 @@
-{'slow_mode': False, 'show_msg': True}
+{'slow_mode': False, 'show_msg': True, 'gui_window_isOpen': False}

@@ -25,6 +25,6 @@ def start_welcome():
 
 def start(self):
     app = QtWidgets.QApplication(sys.argv)
-    win = options.Logic()
+    win = options.Logic(app=app)
     win.show()
     app.exec_()

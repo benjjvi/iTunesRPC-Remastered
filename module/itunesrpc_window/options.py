@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-import os, subprocess
+import os, subprocess, time, threading
 
 def get_logger(log):
     #get logger for window
@@ -81,16 +81,6 @@ class Ui_MainWindow(object):
         font.setPointSize(11)
         self.album.setFont(font)
         self.album.setObjectName("album")
-        self.song_bar = QtWidgets.QProgressBar(self.centralwidget)
-        self.song_bar.setEnabled(True)
-        self.song_bar.setGeometry(QtCore.QRect(200, 120, 321, 20))
-        font = QtGui.QFont()
-        font.setPointSize(1)
-        self.song_bar.setFont(font)
-        self.song_bar.setProperty("value", 24)
-        self.song_bar.setInvertedAppearance(False)
-        self.song_bar.setFormat("")
-        self.song_bar.setObjectName("song_bar")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(10, 160, 491, 71))
         font = QtGui.QFont()
@@ -115,8 +105,35 @@ class Ui_MainWindow(object):
         self.album.setText(_translate("MainWindow", "Album: "))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p>CHANGES MADE <b>WILL NOT</b> TAKE EFFECT UNTIL </p><p><i>iTunesRPC-Remastered</i> IS RESTARTED.</p></body></html>"))
 
+    def closeEvent(self, event):
+        logger("[GUI] CLOSING WINDOW")
+
+        proc = subprocess.Popen("cd", shell=True, stdout=subprocess.PIPE)
+        get_to_root_dir = proc.stdout.read().decode("utf-8").replace("\r\n", "")
+
+        path_to_config = get_to_root_dir + "\\config"
+        path_to_config = path_to_config.replace("\\\\", "\\")
+
+        p = open(path_to_config, "r")
+        prev = eval(p.readline())
+        p.close()
+        prev["gui_window_isOpen"] = False
+        update = open(path_to_config, "w")
+        update.write(str(prev))
+        update.close()
+        
+        logger("[GUI] SAVED gui_window_isOpen AS FALSE.")
+
+        event.accept()
+
+
 class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, app, parent=None):
+        logger("[GUI] OPENING WINDOW")
+
+        self.app = app
+        self._translate = QtCore.QCoreApplication.translate
+
         proc = subprocess.Popen("cd", shell=True, stdout=subprocess.PIPE)
         self.get_to_root_dir = proc.stdout.read().decode("utf-8").replace("\r\n", "")
         logger("[GUI] Root Directory: " + self.get_to_root_dir)
@@ -125,15 +142,72 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.open_logs.clicked.connect(self.open_log)
         self.slow_connection.stateChanged.connect(self.toggle_slow_connection)
+        
 
+        #code used to determine window state
+        #this function (__init__) gets ran every time the window opens
+        #closeEvent from the mainwindow class gets ran every time the window closes
+        #below code allows to set the self.to_update var to true
+        #this is used in the update defintion
+        self.path_to_config = self.get_to_root_dir + "\\config"
+        self.path_to_config = self.path_to_config.replace("\\\\", "\\")
+
+        p = open(self.path_to_config, "r")
+        prev = eval(p.readline())
+        p.close()
+        prev["gui_window_isOpen"] = True
+        update = open(self.path_to_config, "w")
+        update.write(str(prev))
+        update.close()
+        self.to_update = True
+
+        logger("[GUI] SAVED gui_window_isOpen AS TRUE.")
+
+        #start new thread calling self.update()
+        update_thread = threading.Thread(target=self.update, args=())
+        update_thread.start()
+
+    def update(self):
+        _translate = self._translate
+        while self.to_update:
+            x = open("config", "r")
+            conf_file = eval(x.readline())
+            x.close()
+            self.to_update = conf_file["gui_window_isOpen"]
+            
+            try:
+                #read in current song info
+                path = self.get_to_root_dir + "\\current_song_info"
+                x = open(path, "r")
+                curr = eval(x.readline())
+                x.close()
+
+                #format strings
+                song_format = "Song: " + curr["song"]
+                artist_format = "Artist: " + curr["artist"]
+                album_format = "Album: " + curr["album"]
+
+                #push strings
+                self.song.setText(_translate("MainWindow", song_format))
+                self.artist.setText(_translate("MainWindow", artist_format))
+                self.album.setText(_translate("MainWindow", album_format))
+            except Exception as e:
+                logger("[GUI] ERROR: " + e)
+                logger("[GUI] ASSUMING WINDOW IS CLOSED. STOPPING LOOP.")
+                self.to_update = False
+
+            logger("[GUI] Update ran.")
+            time.sleep(1)
+        logger("[GUI] Stopping update loop.")
+        
     def open_log(self):
         cd_cmd = "C:\\Windows\\System32\\notepad.exe " + self.get_to_root_dir + '\\log'
         logger("[GUI] Running command: " + cd_cmd)
         os.system(cd_cmd)
 
     def toggle_slow_connection(self):
-        path_to_config = self.get_to_root_dir + "\\config"
-        path_to_config = path_to_config.replace("\\\\", "\\")
+        path_to_config = self.path_to_config
+
         logger("[GUI] Reading config file.")
         f = open(path_to_config, "r")
         conf = eval(f.read())

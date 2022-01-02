@@ -1,6 +1,9 @@
 #secret app ID
 secret
 
+#current song info file
+current_song_info
+
 #pngs
 /images/*.png
 

@@ -18,6 +18,12 @@ f = open("config", "r")
 config = eval(f.read()) #returns dict
 f.close()
 
+#FIX FOR WINDOW
+#this fix sets current song to not playing, artist to nothing and album to nothing.
+curr = str({"song":"Not Playing", "artist":"", "album":""})
+x = open("current_song_info", "w")
+x.write(curr)
+x.close()
 
 #VARIABLES
 global_pause = 5 #set this higher if you get rate limited often by discord servers (reccomended: 5)
@@ -74,8 +80,6 @@ log_message("Starting iTunesRPC logs.")
 
 
 
-
-
 #DEFINITIONS
 def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     paused = False
@@ -86,6 +90,13 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     #OTHER INFO
     artist = o.CurrentTrack.Artist
     album = o.CurrentTrack.Album
+
+    #SAVE DATA TO FILE, FOR WINDOW
+    curr = str({"song":track, "artist":artist, "album":album})
+    x = open("current_song_info", "w")
+    x.write(curr)
+    x.close()
+
     try:
         key_lookup = track + ":" + artist
         artwork_value = str(dict[key_lookup]) #artwork is directly uploaded to discord developer portal
@@ -351,6 +362,17 @@ while running:
 #SHUTDOWN
 DiscordRPC.close()
 log_message("Closed connection to DiscordRPC.")
+
 systray.shutdown()
-log_message("Shutdown the Systray icon.\nShutting down the Python program.")
-sys.exit()
+log_message("Shutdown the Systray icon.")
+
+p = open("config", "r")
+prev = eval(p.readline())
+p.close()
+prev["gui_window_isOpen"] = False
+update = open("config", "w")
+update.write(str(prev))
+update.close()
+log_message("Set GUI isOpen to False to ensure we don't get hanging on next open.\nIf this value is left as true, on the next launch of the app, it is possible that the window will freeze.")
+
+sys.exit(log_message("Shutdown application."))
