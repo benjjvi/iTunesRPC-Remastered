@@ -2,7 +2,8 @@
 secret
 
 #pngs
-/images/*.png
+#/images/*.png
+#temp remove above to delete all from git repo
 
 #builds
 /build/Debug Builds
