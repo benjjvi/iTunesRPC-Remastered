@@ -32,7 +32,11 @@ if config["slow_mode"] == True:
     global_pause += 5
 
 try:
-    secret = open("secret", "r").readline() # discord client app secret
+    import secret
+    app_ID = secret.return_secret()
+    del secret
+    secret = app_ID
+    del app_ID
 except Exception:
     import module.itunesrpc_window.error_no_secret as ens #error no secret (E.001.NS)
     ens.get_logger(log_message)

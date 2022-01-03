@@ -1,5 +1,5 @@
 #secret app ID
-secret
+secret.py
 
 #current song info file
 current_song_info
@@ -8,7 +8,7 @@ current_song_info
 /images/*.png
 
 #builds
-/build/Debug Builds
+/build/AutoPyToExe Files/Debug Builds
 /__pycache__
 /*/__pycache__
 /*/*/__pycache__
