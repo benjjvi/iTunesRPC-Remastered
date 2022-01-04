@@ -12,6 +12,8 @@ Inspired by [nint8835's iTunesRichPresence repo](https://github.com/nint8835/iTu
 Using minimally modified code from [Infinidat's infi.systray module](https://github.com/Infinidat/infi.systray). This repo therefore uses their [BSD 3-Clause 'New' or 'Revised' License](https://github.com/Infinidat/infi.systray/blob/develop/LICENSE) 
 provided within their GitHub repo.
 
+Current Line Count: ```828```
+
 ## LICENSES
 
 This repository contains code from INFIDAT with their infi.systray code. Their license for the code can be found [here](/LICENSES/INFIDAT-License). This repository also contains code from qwertyqwerty with their pypresence library. Their license for the code can be found [here](/LICENSES/pypresence-License). Additionally, the repository is licenses under its own ```Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)``` License. The simplified version can be found [here](/LICENSES/Simplified-iTunesRPC-License), and the full version can be found [here](/LICENSES/Full-iTunesRPC-License). In the case of a legal dispute, the one applicable by law to the code provided in this software is the [full license](/LICENSES/Full-iTunesRPC-License). 

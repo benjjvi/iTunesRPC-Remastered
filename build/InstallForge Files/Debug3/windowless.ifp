@@ -1,0 +1,812 @@
+﻿
+[Header]
+ProjectFileVersion = 1.1
+[General]
+Program name = iTunesRPC Remastered
+Program version = debug.3.0.0
+Windows 2000 = 0
+Windows XP = 0
+Windows Server 2003 = 0
+Windows Vista = 0
+Windows Server 2008 = 0
+Windows 7 = 1
+Windows 8 = 1
+Windows 10 = 1
+Windows Server 2016 = 1
+DoNotCheckOS = 0
+Company name = bildsben
+Website = https://bildsben.tech
+SFA = 0
+DFA = 1
+Comp = 1
+[Graphics]
+Wizard image = C:\Program Files (x86)\solicus\InstallForge\images\Wizard_1.bmp
+Header image = C:\Program Files (x86)\solicus\InstallForge\images\Header_1.bmp
+Show Label = 1
+VisualStylesEnabled = 1
+[Files]
+Installation path = <ProgramFiles>\<Company>\<AppName>\
+Autcip = 1
+[Uninstall]
+Vwau = 0
+Website = https://
+Include uninstaller = 1
+Uninstaller filename = Uninstall iTunesRPC Remastered
+UseCustomDisplayIcon = 0
+CustomDisplayIcon = <InstallPath>\
+[Licence]
+Licence dialog = 1
+[Finish]
+Sart program = 0
+Reboot computer = 0
+Program = <InstallPath>\
+ProgramArguments = 
+[Shortcuts]
+Allowtc = 0
+Shortcut path = <Company>\<AppName>
+[Serialoptions]
+Allows = 1
+Number = 1
+Mask = #####-#####-#####-#####-#####-#####-#####-#####-#####
+[SplashScreen]
+Image = 
+Sound = 
+Time = 2
+PlaySound = 0
+Allow = 0
+[Build]
+File = C:\Users\Ben Voisey\Desktop\no console.exe
+SetupIconPath = C:\Program Files (x86)\solicus\InstallForge\icons\modern.ico
+UninstallIconPath = C:\Program Files (x86)\solicus\InstallForge\icons\ancient.ico
+CompressionMethod = 2
+CompressionLevel = 2
+[Updater]
+Allow = 0
+1 = <AppName>
+2 = <AppVersion>
+3 = http://
+4 = http://
+5 = http://
+6 = Update
+Language = 0
+RunProg = 
+RunProgs = 0
+Execdlls = 0
+[Languages]
+1
+[Files/Dirs]
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_elementtree.pyd
+119.2 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_hashlib.pyd
+57.7 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_lzma.pyd
+149.7 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_multiprocessing.pyd
+29.2 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_overlapped.pyd
+44.2 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_queue.pyd
+26.7 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_socket.pyd
+72.7 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_ssl.pyd
+152.2 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_uuid.pyd
+20.2 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_win32sysloader.cp310-win_amd64.pyd
+12 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-console-l1-1-0.dll
+12.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-datetime-l1-1-0.dll
+11.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-debug-l1-1-0.dll
+11.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-errorhandling-l1-1-0.dll
+11.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-file-l1-1-0.dll
+15.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-file-l1-2-0.dll
+11.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-file-l2-1-0.dll
+11.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-handle-l1-1-0.dll
+11.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-heap-l1-1-0.dll
+12.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-interlocked-l1-1-0.dll
+11.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-libraryloader-l1-1-0.dll
+12.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-localization-l1-2-0.dll
+14.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-memory-l1-1-0.dll
+12.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-namedpipe-l1-1-0.dll
+11.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-processenvironment-l1-1-0.dll
+12.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-processthreads-l1-1-0.dll
+13.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-processthreads-l1-1-1.dll
+12.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-profile-l1-1-0.dll
+11.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-rtlsupport-l1-1-0.dll
+12.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-string-l1-1-0.dll
+11.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-synch-l1-1-0.dll
+13.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-synch-l1-2-0.dll
+12.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-sysinfo-l1-1-0.dll
+12.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-timezone-l1-1-0.dll
+12.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-core-util-l1-1-0.dll
+11.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-conio-l1-1-0.dll
+12.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-convert-l1-1-0.dll
+15.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-environment-l1-1-0.dll
+12.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-filesystem-l1-1-0.dll
+13.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-heap-l1-1-0.dll
+12.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-locale-l1-1-0.dll
+12.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-math-l1-1-0.dll
+20.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-multibyte-l1-1-0.dll
+19.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-process-l1-1-0.dll
+12.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-runtime-l1-1-0.dll
+16.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-stdio-l1-1-0.dll
+17.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-string-l1-1-0.dll
+17.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-time-l1-1-0.dll
+14.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\api-ms-win-crt-utility-l1-1-0.dll
+12.4 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\base_library.zip
+794.3 KB
+zip
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\config
+66 Byte
+
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\d3dcompiler_47.dll
+4 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\dict
+2.9 KB
+
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\discord_command
+88 Byte
+
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\iTunesRPC-Remastered.exe
+2.7 MB
+exe
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\libcrypto-1_1.dll
+3.3 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\libcrypto-1_1-x64.dll
+3.1 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\libeay32.dll
+1.9 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\libEGL.dll
+24.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\libffi-7.dll
+32 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\libGLESv2.dll
+3.2 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\libssl-1_1.dll
+678.7 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\libssl-1_1-x64.dll
+665.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\mfc140u.dll
+5.8 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\MSVCP140.dll
+576.3 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\MSVCP140_1.dll
+31 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\opengl32sw.dll
+20 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\pyexpat.pyd
+187.2 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\python3.dll
+60.2 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\python310.dll
+4.2 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\pythoncom310.dll
+543.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\pywintypes310.dll
+139 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Bluetooth.dll
+535 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Core.dll
+5.7 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5DBus.dll
+426.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Designer.dll
+4.3 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Gui.dll
+6.7 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Help.dll
+418.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Location.dll
+1.6 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Multimedia.dll
+729 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5MultimediaWidgets.dll
+100 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Network.dll
+1.3 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Nfc.dll
+135 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5OpenGL.dll
+313.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Positioning.dll
+308.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5PositioningQuick.dll
+107 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5PrintSupport.dll
+310 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Qml.dll
+3.4 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5QmlModels.dll
+428.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5QmlWorkerScript.dll
+56 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Quick.dll
+4 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Quick3D.dll
+505.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Quick3DAssetImport.dll
+114.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Quick3DRender.dll
+220.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Quick3DRuntimeRender.dll
+1.2 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Quick3DUtils.dll
+45 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5QuickControls2.dll
+169.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5QuickParticles.dll
+467.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5QuickShapes.dll
+210.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5QuickTemplates2.dll
+1.1 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5QuickTest.dll
+118 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5QuickWidgets.dll
+80.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5RemoteObjects.dll
+466.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Sensors.dll
+201 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5SerialPort.dll
+74 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Sql.dll
+204 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Svg.dll
+323 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Test.dll
+239.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5TextToSpeech.dll
+48.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5WebChannel.dll
+131 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5WebSockets.dll
+146 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5WebView.dll
+76.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Widgets.dll
+5.2 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5WinExtras.dll
+231.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5Xml.dll
+208.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\Qt5XmlPatterns.dll
+2.5 MB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\select.pyd
+25.2 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\ssleay32.dll
+353.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\ucrtbase.dll
+993.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\unicodedata.pyd
+1.1 MB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\VCRUNTIME140.dll
+94.9 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\VCRUNTIME140_1.dll
+43.5 KB
+dll
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\win32api.cp310-win_amd64.pyd
+131.5 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\win32clipboard.cp310-win_amd64.pyd
+25.5 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\win32event.cp310-win_amd64.pyd
+26.5 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\win32gui.cp310-win_amd64.pyd
+223.5 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\win32pdh.cp310-win_amd64.pyd
+33.5 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\win32process.cp310-win_amd64.pyd
+53 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\win32trace.cp310-win_amd64.pyd
+22 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\win32ui.cp310-win_amd64.pyd
+1.4 MB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\winxpgui.cp310-win_amd64.pyd
+612.5 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\psutil
+N/A
+[Folder]
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\pypresence
+N/A
+[Folder]
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\pypresence-4.2.1.dist-info
+N/A
+[Folder]
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\PyQt5
+N/A
+[Folder]
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\PyQt5-5.15.6.dist-info
+N/A
+[Folder]
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\win32com
+N/A
+[Folder]
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_asyncio.pyd
+59.2 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_bz2.pyd
+78.2 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_ctypes.pyd
+117.2 KB
+pyd
+F:\iTunesRPC-Remastered\build\AutoPyToExe Files\Debug Builds\Debug3\no console directory\_decimal.pyd
+241.7 KB
+pyd
+[Licence_Begin]
+19447
+{\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\ul\b\fs20 YOU MUST AGREE TO ALL THREE LICENSES BELOW\par
+License 1: INFIDAT License\ulnone\b0\par
+Copyright (c) 2017 INFINIDAT\par
+\par
+Redistribution and use in source and binary forms, with or without\par
+modification, are permitted provided that the following conditions are met:\par
+\par
+1. Redistributions of source code must retain the above copyright notice, this\par
+   list of conditions and the following disclaimer.\par
+\par
+2. Redistributions in binary form must reproduce the above copyright notice,\par
+   this list of conditions and the following disclaimer in the documentation\par
+   and/or other materials provided with the distribution.\par
+\par
+3. Neither the name of the copyright holder nor the names of its contributors\par
+   may be used to endorse or promote products derived from this software\par
+   without specific prior written permission.\par
+\par
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND\par
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED\par
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\par
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\par
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\par
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\par
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\par
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\par
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\par
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\par
+\par
+\ul\b License 2: pypresence License\par
+\ulnone\b0 Copyright 2021 qwertyquerty\par
+\par
+Redistribution and use in source and binary forms, with or without modification, are \par
+permitted provided that the following conditions are met:\par
+\par
+1. Redistributions of source code must retain the above copyright notice, this list of \par
+conditions and the following disclaimer.\par
+\par
+2. Redistributions in binary form must reproduce the above copyright notice, this list \par
+of conditions and the following disclaimer in the documentation and/or other materials \par
+provided with the distribution.\par
+\par
+3. Neither the name of the copyright holder nor the names of its contributors may be \par
+used to endorse or promote products derived from this software without specific prior \par
+written permission.\par
+\par
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY \par
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES \par
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL \par
+THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, \par
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT \par
+OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) \par
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR \par
+TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, \par
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\ul\b\par
+\par
+License 3: iTunesRPC-Remastered License\ulnone\b0\par
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public\par
+License\par
+\par
+By exercising the Licensed Rights (defined below), You accept and agree to be\par
+bound by the terms and conditions of this Creative Commons Attribution-\par
+NonCommercial-ShareAlike 4.0 International Public License ("Public License").\par
+To the extent this Public License may be interpreted as a contract, You are\par
+granted the Licensed Rights in consideration of Your acceptance of these terms\par
+and conditions, and the Licensor grants You such rights in consideration of\par
+benefits the Licensor receives from making the Licensed Material available\par
+under these terms and conditions.\par
+\par
+Section 1 - Definitions.\par
+\par
+Adapted Material means material subject to Copyright and Similar Rights that is\par
+derived from or based upon the Licensed Material and in which the Licensed\par
+Material is translated, altered, arranged, transformed, or otherwise modified\par
+in a manner requiring permission under the Copyright and Similar Rights held by\par
+the Licensor. For purposes of this Public License, where the Licensed Material\par
+is a musical work, performance, or sound recording, Adapted Material is always\par
+produced where the Licensed Material is synched in timed relation with a moving\par
+image. Adapter's License means the license You apply to Your Copyright and\par
+Similar Rights in Your contributions to Adapted Material in accordance with the\par
+terms and conditions of this Public License. BY-NC-SA Compatible License\par
+means a license listed at creativecommons.org/compatiblelicenses, approved by\par
+Creative Commons as essentially the equivalent of this Public License.\par
+Copyright and Similar Rights means copyright and/or similar rights closely\par
+related to copyright including, without limitation, performance, broadcast,\par
+sound recording, and Sui Generis Database Rights, without regard to how the\par
+rights are labeled or categorized. For purposes of this Public License, the\par
+rights specified in Section 2(b)(1)-(2) are not Copyright and Similar\par
+Rights. Effective Technological Measures means those measures that, in the\par
+absence of proper authority, may not be circumvented under laws fulfilling\par
+obligations under Article 11 of the WIPO Copyright Treaty adopted on December\par
+20, 1996, and/or similar international agreements. Exceptions and\par
+Limitations means fair use, fair dealing, and/or any other exception or\par
+limitation to Copyright and Similar Rights that applies to Your use of the\par
+Licensed Material. License Elements means the license attributes listed in\par
+the name of a Creative Commons Public License. The License Elements of this\par
+Public License are Attribution, NonCommercial, and ShareAlike. Licensed\par
+Material means the artistic or literary work, database, or other material to\par
+which the Licensor applied this Public License. Licensed Rights means the\par
+rights granted to You subject to the terms and conditions of this Public\par
+License, which are limited to all Copyright and Similar Rights that apply to\par
+Your use of the Licensed Material and that the Licensor has authority to\par
+license. Licensor means the individual(s) or entity(ies) granting rights\par
+under this Public License. NonCommercial means not primarily intended for or\par
+directed towards commercial advantage or monetary compensation. For purposes of\par
+this Public License, the exchange of the Licensed Material for other material\par
+subject to Copyright and Similar Rights by digital file-sharing or similar\par
+means is NonCommercial provided there is no payment of monetary compensation in\par
+connection with the exchange. Share means to provide material to the public\par
+by any means or process that requires permission under the Licensed Rights,\par
+such as reproduction, public display, public performance, distribution,\par
+dissemination, communication, or importation, and to make material available to\par
+the public including in ways that members of the public may access the material\par
+from a place and at a time individually chosen by them. Sui Generis Database\par
+Rights means rights other than copyright resulting from Directive 96/9/EC of\par
+the European Parliament and of the Council of 11 March 1996 on the legal\par
+protection of databases, as amended and/or succeeded, as well as other\par
+essentially equivalent rights anywhere in the world. You means the\par
+individual or entity exercising the Licensed Rights under this Public License.\par
+Your has a corresponding meaning.\par
+\par
+Section 2 - Scope.\par
+\par
+License grant.  Subject to the terms and conditions of this Public\par
+License, the Licensor hereby grants You a worldwide, royalty-free, non-\par
+sublicensable, non-exclusive, irrevocable license to exercise the Licensed\par
+Rights in the Licensed Material to:   reproduce and Share the Licensed\par
+Material, in whole or in part, for NonCommercial purposes only; and\par
+produce, reproduce, and Share Adapted Material for NonCommercial purposes\par
+only.  Exceptions and Limitations. For the avoidance of doubt, where\par
+Exceptions and Limitations apply to Your use, this Public License does not\par
+apply, and You do not need to comply with its terms and conditions.\par
+Term. The term of this Public License is specified in Section 6(a).\par
+Media and formats; technical modifications allowed. The Licensor authorizes You\par
+to exercise the Licensed Rights in all media and formats whether now known or\par
+hereafter created, and to make technical modifications necessary to do so. The\par
+Licensor waives and/or agrees not to assert any right or authority to forbid\par
+You from making technical modifications necessary to exercise the Licensed\par
+Rights, including technical modifications necessary to circumvent Effective\par
+Technological Measures. For purposes of this Public License, simply making\par
+modifications authorized by this Section 2(a)(4) never produces Adapted\par
+Material.  Downstream recipients.   Offer from the Licensor -\par
+Licensed Material. Every recipient of the Licensed Material automatically\par
+receives an offer from the Licensor to exercise the Licensed Rights under the\par
+terms and conditions of this Public License.   Additional offer from\par
+the Licensor - Adapted Material. Every recipient of Adapted Material from You\par
+automatically receives an offer from the Licensor to exercise the Licensed\par
+Rights in the Adapted Material under the conditions of the Adapter\rquote s License\par
+You apply.   No downstream restrictions. You may not offer or impose\par
+any additional or different terms or conditions on, or apply any Effective\par
+Technological Measures to, the Licensed Material if doing so restricts exercise\par
+of the Licensed Rights by any recipient of the Licensed Material.  No\par
+endorsement. Nothing in this Public License constitutes or may be construed as\par
+permission to assert or imply that You are, or that Your use of the Licensed\par
+Material is, connected with, or sponsored, endorsed, or granted official status\par
+by, the Licensor or others designated to receive attribution as provided in\par
+Section 3(a)(1)(A)(i).\par
+\par
+Other rights.  Moral rights, such as the right of integrity, are not\par
+licensed under this Public License, nor are publicity, privacy, and/or other\par
+similar personality rights; however, to the extent possible, the Licensor\par
+waives and/or agrees not to assert any such rights held by the Licensor to the\par
+limited extent necessary to allow You to exercise the Licensed Rights, but not\par
+otherwise.  Patent and trademark rights are not licensed under this\par
+Public License.  To the extent possible, the Licensor waives any right to\par
+collect royalties from You for the exercise of the Licensed Rights, whether\par
+directly or through a collecting society under any voluntary or waivable\par
+statutory or compulsory licensing scheme. In all other cases the Licensor\par
+expressly reserves any right to collect such royalties, including when the\par
+Licensed Material is used other than for NonCommercial purposes.\par
+\par
+Section 3 - License Conditions.\par
+\par
+Your exercise of the Licensed Rights is expressly made subject to the following\par
+conditions.\par
+\par
+Attribution.\par
+\par
+If You Share the Licensed Material (including in modified form), You\par
+must:   retain the following if it is supplied by the Licensor with\par
+the Licensed Material:    identification of the creator(s) of the\par
+Licensed Material and any others designated to receive attribution, in any\par
+reasonable manner requested by the Licensor (including by pseudonym if\par
+designated);    a copyright notice;    a notice that\par
+refers to this Public License;    a notice that refers to the\par
+disclaimer of warranties;    a URI or hyperlink to the Licensed\par
+Material to the extent reasonably practicable;   indicate if You\par
+modified the Licensed Material and retain an indication of any previous\par
+modifications; and   indicate the Licensed Material is licensed under\par
+this Public License, and include the text of, or the URI or hyperlink to, this\par
+Public License.  You may satisfy the conditions in Section 3(a)(1) in any\par
+reasonable manner based on the medium, means, and context in which You Share\par
+the Licensed Material. For example, it may be reasonable to satisfy the\par
+conditions by providing a URI or hyperlink to a resource that includes the\par
+required information.  If requested by the Licensor, You must remove any\par
+of the information required by Section 3(a)(1)(A) to the extent reasonably\par
+practicable. ShareAlike.\par
+\par
+In addition to the conditions in Section 3(a), if You Share Adapted Material\par
+You produce, the following conditions also apply.  The Adapter\rquote s License\par
+You apply must be a Creative Commons license with the same License Elements,\par
+this version or later, or a BY-NC-SA Compatible License.  You must\par
+include the text of, or the URI or hyperlink to, the Adapter's License You\par
+apply. You may satisfy this condition in any reasonable manner based on the\par
+medium, means, and context in which You Share Adapted Material.  You may\par
+not offer or impose any additional or different terms or conditions on, or\par
+apply any Effective Technological Measures to, Adapted Material that restrict\par
+exercise of the rights granted under the Adapter's License You apply.\par
+\par
+Section 4 - Sui Generis Database Rights.\par
+\par
+Where the Licensed Rights include Sui Generis Database Rights that apply to\par
+Your use of the Licensed Material:\par
+\par
+for the avoidance of doubt, Section 2(a)(1) grants You the right to extract,\par
+reuse, reproduce, and Share all or a substantial portion of the contents of the\par
+database for NonCommercial purposes only; if You include all or a\par
+substantial portion of the database contents in a database in which You have\par
+Sui Generis Database Rights, then the database in which You have Sui Generis\par
+Database Rights (but not its individual contents) is Adapted Material,\par
+including for purposes of Section 3(b); and You must comply with the\par
+conditions in Section 3(a) if You Share all or a substantial portion of the\par
+contents of the database.\par
+\par
+For the avoidance of doubt, this Section 4 supplements and does not replace\par
+Your obligations under this Public License where the Licensed Rights include\par
+other Copyright and Similar Rights.\par
+\par
+Section 5 - Disclaimer of Warranties and Limitation of Liability.\par
+\par
+Unless otherwise separately undertaken by the Licensor, to the extent possible,\par
+the Licensor offers the Licensed Material as-is and as-available, and makes no\par
+representations or warranties of any kind concerning the Licensed Material,\par
+whether express, implied, statutory, or other. This includes, without\par
+limitation, warranties of title, merchantability, fitness for a particular\par
+purpose, non-infringement, absence of latent or other defects, accuracy, or the\par
+presence or absence of errors, whether or not known or discoverable. Where\par
+disclaimers of warranties are not allowed in full or in part, this disclaimer\par
+may not apply to You. To the extent possible, in no event will the Licensor\par
+be liable to You on any legal theory (including, without limitation,\par
+negligence) or otherwise for any direct, special, indirect, incidental,\par
+consequential, punitive, exemplary, or other losses, costs, expenses, or\par
+damages arising out of this Public License or use of the Licensed Material,\par
+even if the Licensor has been advised of the possibility of such losses, costs,\par
+expenses, or damages. Where a limitation of liability is not allowed in full or\par
+in part, this limitation may not apply to You.\par
+\par
+The disclaimer of warranties and limitation of liability provided above shall\par
+be interpreted in a manner that, to the extent possible, most closely\par
+approximates an absolute disclaimer and waiver of all liability.\par
+\par
+Section 6 - Term and Termination.\par
+\par
+This Public License applies for the term of the Copyright and Similar Rights\par
+licensed here. However, if You fail to comply with this Public License, then\par
+Your rights under this Public License terminate automatically.\par
+\par
+Where Your right to use the Licensed Material has terminated under Section 6(\par
+a), it reinstates:  automatically as of the date the violation is cured,\par
+provided it is cured within 30 days of Your discovery of the violation;\par
+or  upon express reinstatement by the Licensor. For the avoidance of\par
+doubt, this Section 6(b) does not affect any right the Licensor may have to\par
+seek remedies for Your violations of this Public License. For the avoidance\par
+of doubt, the Licensor may also offer the Licensed Material under separate\par
+terms or conditions or stop distributing the Licensed Material at any time;\par
+however, doing so will not terminate this Public License. Sections 1, 5, 6,\par
+7, and 8 survive termination of this Public License.\par
+\par
+Section 7 - Other Terms and Conditions.\par
+\par
+The Licensor shall not be bound by any additional or different terms or\par
+conditions communicated by You unless expressly agreed. Any arrangements,\par
+understandings, or agreements regarding the Licensed Material not stated herein\par
+are separate from and independent of the terms and conditions of this Public\par
+License.\par
+\par
+Section 8 - Interpretation.\par
+\par
+For the avoidance of doubt, this Public License does not, and shall not be\par
+interpreted to, reduce, limit, restrict, or impose conditions on any use of the\par
+Licensed Material that could lawfully be made without permission under this\par
+Public License. To the extent possible, if any provision of this Public\par
+License is deemed unenforceable, it shall be automatically reformed to the\par
+minimum extent necessary to make it enforceable. If the provision cannot be\par
+reformed, it shall be severed from this Public License without affecting the\par
+enforceability of the remaining terms and conditions. No term or condition\par
+of this Public License will be waived and no failure to comply consented to\par
+unless expressly agreed to by the Licensor. Nothing in this Public License\par
+constitutes or may be interpreted as a limitation upon, or waiver of, any\par
+privileges and immunities that apply to the Licensor or You, including from the\par
+legal processes of any jurisdiction or authority.\par
+\par
+\par
+The licensor cannot revoke these freedoms as long as you follow the license terms.\par
+}
+ [Licence_End]
+[Registry]
+HKEY_CURRENT_USER
+Software\Microsoft\Windows\CurrentVersion\Run
+iTunesRPC Remastered
+<InstallPath>\iTunesRPC-Remastered.exe
+1
+[Variables]
+[SCs]
+[IFP_End]
+[Serials]
+3CDN3-4WXY8-3I6UN-Z7AQ6-89J4F-F1KGG-9408F-83X7M-Q3UTV
+[Serials_End]
+[Commands]

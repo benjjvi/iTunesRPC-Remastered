@@ -43,9 +43,19 @@ except Exception:
     ens.start()
     sys.exit()
 
-discord_path = open("discord_command", "r").readline() #this should be the command run to open discord
-dict = eval(open("dict", "r", encoding="utf-8").read()) #the encoding is needed for other charsets 
-                                                        #e.g cyrillic
+try:
+    discord_path = open("discord_command", "r").readline() #this should be the command run to open discord
+except Exception as e:
+    log_message("Error Occured: " + e)
+    discord_path = "C: && cd %appdata% && cd .. && cd Local\\Discord && Update.exe --processStart Discord.exe"
+
+try:
+    dict = eval(open("dict", "r", encoding="utf-8").read()) #the encoding is needed for other charsets 
+                                                            #e.g cyrillic
+except Exception as e:
+    log_message("Error Occured: " + e)
+    dict = {}
+
 shutdown_systray = False
 buttons = [
     {"label": "View on GitHub", "url": "https://github.com/bildsben/iTunesRPC-Remastered"}    
