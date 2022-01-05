@@ -356,15 +356,25 @@ while running:
             last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
             time.sleep(global_pause)
         else:
-            if stopped:
-                DiscordRPC.clear()
-                o = win32com.client.gencache.EnsureDispatch("iTunes.Application")
-                log_message("..........................................")
-                log_message(".    iTunes is not playing anything...   .")
-                log_message(". Waiting for it to play before starting .")
-                log_message(".           Waiting 10 seconds.          .")
-                log_message("..........................................")
-                time.sleep(10)
+            DiscordRPC.clear()
+            try:
+                del o
+            except Exception:
+                pass
+            o = win32com.client.gencache.EnsureDispatch("iTunes.Application")
+            log_message("..........................................")
+            log_message(".    iTunes is not playing anything...   .")
+            log_message(". Waiting for it to play before starting .")
+            log_message(".           Waiting 10 seconds.          .")
+            log_message("..........................................")
+            time.sleep(10)
+
+            stopped = False
+            try:
+                track = o.CurrentTrack.Name
+            except Exception as e:
+                log_message(e)
+                stopped = True
 
         if shutdown_systray:
             running = False
@@ -390,6 +400,6 @@ prev["gui_window_isOpen"] = False
 update = open("config", "w")
 update.write(str(prev))
 update.close()
-log_message("Set GUI isOpen to False to ensure we don't get hanging on next open.\nIf this value is left as true, on the next launch of the app, it is possible that the window will freeze.")
+log_message("Set GUI isOpen to False to ensure we don't get hanging on next open.") #If this value is left as true, on the next launch of the app, it is possible that the window will freeze.
 
 sys.exit(log_message("Shutdown application."))
