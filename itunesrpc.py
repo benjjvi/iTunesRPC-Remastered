@@ -111,9 +111,8 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
 
     #SAVE DATA TO FILE, FOR WINDOW
     curr = str({"song":track, "artist":artist, "album":album})
-    x = open("current_song_info", "w")
-    x.write(curr)
-    x.close()
+    with open("current_song_info", "w", encoding="utf-8") as current: #save with context manager to allow for encoding= variable.
+        current.write(curr)
 
     try:
         key_lookup = track + ":" + artist
