@@ -1,3 +1,4 @@
+# encoding: utf-8
 import os
 from .win32_adapter import *
 import threading

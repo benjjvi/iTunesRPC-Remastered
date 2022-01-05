@@ -1,3 +1,4 @@
+# encoding: utf-8
 #wrapper for the window.py app
 import os
 import sys

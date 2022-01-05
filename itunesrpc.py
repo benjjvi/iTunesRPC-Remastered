@@ -1,3 +1,7 @@
+# encoding: utf-8
+# iTuneRPC-Remastered
+# github.com/bildsben/iTunesRPC-Remastered
+
 #CORE LIBRARIES
 import os
 import platform  # for log info

@@ -1,3 +1,4 @@
+# encoding: utf-8
 import ctypes
 import ctypes.wintypes
 import locale
