@@ -12,7 +12,7 @@ Inspired by [nint8835's iTunesRichPresence repo](https://github.com/nint8835/iTu
 Using minimally modified code from [Infinidat's infi.systray module](https://github.com/Infinidat/infi.systray). This repo therefore uses their [BSD 3-Clause 'New' or 'Revised' License](https://github.com/Infinidat/infi.systray/blob/develop/LICENSE) 
 provided within their GitHub repo.
 
-Current Line Count: ```1,572 (Last count @ 23:01, 28 Jan 2022)```
+Current Line Count: ```1,362 (Last count @ 23:01, 28 Jan 2022)```
 
 ## LICENSES
 
