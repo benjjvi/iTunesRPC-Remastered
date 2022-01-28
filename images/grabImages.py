@@ -17,11 +17,17 @@ toval = (int(input("How many songs are there to count?\n> ")) + i) - 1
 print("Getting songs in 3 seconds.")
 time.sleep(3)
 o = win32com.client.gencache.EnsureDispatch("iTunes.Application") #connect to the COM of iTunes.Application
+
 while run:
     i += 1
-    path = (os.path.dirname(os.path.realpath(__file__))).replace("\\", "\\\\") + "\\" + str(i) + ".png"
+    path = (os.path.dirname(os.path.realpath(__file__))) + fr"\\" + str(i) + ".png"
+
+    if path[:2] == r"\\":
+        print("You are running on a network server.")
+        print("Please use a local folder.")
 
     artwork = o.CurrentTrack.Artwork.Item(1).SaveArtworkToFile(path)
+    #win32com.client.CastTo(o.CurrentTrack.Artwork.Item(1).SaveArtworkToFile(path), 'IITFileOrCDTrack')
 
     track = o.CurrentTrack.Name
     artist = o.CurrentTrack.Artist
@@ -34,6 +40,8 @@ while run:
         run = False
     else: 
         time.sleep(4)
+
+    
 
 f = open("dict", "w", encoding="utf-8")
 f.write(str(dictionary))

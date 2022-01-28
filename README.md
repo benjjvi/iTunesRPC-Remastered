@@ -12,7 +12,7 @@ Inspired by [nint8835's iTunesRichPresence repo](https://github.com/nint8835/iTu
 Using minimally modified code from [Infinidat's infi.systray module](https://github.com/Infinidat/infi.systray). This repo therefore uses their [BSD 3-Clause 'New' or 'Revised' License](https://github.com/Infinidat/infi.systray/blob/develop/LICENSE) 
 provided within their GitHub repo.
 
-Current Line Count: ```828```
+Current Line Count: ```1,572 (Last count @ 23:01, 28 Jan 2022)```
 
 ## LICENSES
 
@@ -22,25 +22,15 @@ This repository contains code from INFIDAT with their infi.systray code. Their l
 
 If you get an error message when the application tries to launch Discord, you may need to change the file named discord_command, even if you downloaded the .ZIP file containing the files .EXE format.
 
+## SELF HOSTING THE SERVER
+
+Want to host the server yourself? Go for it! Place the server.py, all_files, and run.sh files into a folder that can be accessed externally on a HTTPS connection. Run the run.sh file, and the web server will start itself up. When running itunesrpc.py, edit the domain file to have your web servers domain instead of the default.
+
 ## IMPORTANT NOTE
-If you do not install the application with the "setup_64.exe" file, you must make an application in the [Discord Developer Portal](https://discord.com/developers/applications) and copy the application ID into a definition in a file named ```secret.py```. The definition should be called ```return_secret```, and return the App ID as an INTEGER. An example can be found below.
-```python
-def return_secret():
-    return 1234567890
-```
- You will need to upload all of the images in the ```static``` folder to your Discord Developer Portal application.
-Additionally, you will need to have a file called ```discord_command``` with the command line command that can be used to execute discord from cmd. You can find this by right clicking your discord link on your desktop and copying the target text. 
+Since the last update of this program, the album artwork automatically uploads to a server for you as discord has allowed rich presence images to contact outside servers! The server is defined in the ```domain``` file, and should NOT have a http(s)://or a trailing / at the end of the url. Additionally, the file server that the artwork is uploaded to should be available at ```https://your_url.com/itrpc/server.py```. If this returns an error, you have not set up the server correctly, as the server.py file, and the all_files file should be accessible on the internet as that is the folder that the images get saved to. The files in the "static" folder should also be placed in that folder with the same name that they have at the moment. However, what hasn't changed since the last update is the need for an AppID to be found in the home folder of the project. An AppID is not required to be added for the compiled executeable, as it is bundled with the EXE, however it is necessary if you plan on runing the raw python files.
 
-Furthermore, to get the album artwork, please play your playlist, be it on shuffle or in order, and run the script in the ```images``` folder named ```grabImages.py```. It will download the current playing album artwork, and after 5 seconds, get the current playing album artwork. To do this efficiently, have your finger on the ```FN``` key and press ```F8``` (or whichever key is your keyboards skip song key) to skip songs. Once the command prompt says ```sleeping 5 seconds``` you can skip song. When starting the script, you'll be asked to provide a starting and ending number. If this is the first time running the script, type 1 as the starting number, and the length of your playlist as the ending number. For example, to add the playlist below, I would submit 1 as the starting number and 33 as the final number.
-
-![An image showing a cropped screenshot of an iTunes playlist named vibes 2.0, with a cover of a boy in a hoodie with the caption "roadman". Below the title of the playlist is the message "33 songs, totalling 1 hour and 37 minutes". Below this is a checkmark box that is ticked saying "publish on profile and in search".](/docs/1.png "My Playlist as an example.")
-
-If this is not your first time adding to the library of artwork, you should set the start number to one above the highest you have at the moment. For example, the playlist above has 33 songs, I would set the starting number as 34 to add a new playlist's artwork. When you have all the images you would like, first, move the ```dict``` file that was created in the ```images``` folder to the folder above (the one containing the itunesrpc.py script). After you have copied the ```dict``` file, you will need to upload the artwork images to your discord application thorugh the [Discord Developer Portal](https://discord.com/developers/applications).
-
-1. Head over to the [Discord Developer Portal](https://discord.com/developers/applications) and select your application. Mine is called Apple Music, as you can see in [this image](/docs/2.png).
-2. Select the application by clicking its icon, then press the Rich Presence option on the left hand menu. It should look like [this](/docs/3.png)
-3. Press the [Rich Presence > Art Assets](/docs/4.png) option.
-4. Select [add images](/docs/5.png) and add all your images WITHOUT changing the file names. The ```dict``` file holds a copy of each song with the number that corresponds with that song.
+The file should be named secret.py, and contain the following line.
+```def return_secret() -> int: return int(your_app_id)```
 
 ## Features
 Original Features:
@@ -50,9 +40,6 @@ Original Features:
 
 New Features:
 1. Paused message
-2. Album Artwork (limited due to discord API)
+2. Album Artwork
 3. Error Checking (is Discord open? If not, open it. Is iTunes playing anything? if not, clear rich presence)
 4. Rewind Support (before, rewinding wouldn't modify anything with the client, but now it changes the time left variable.)
-
-## Limitations
-1. Album Artwork has to be manually uploaded, and can only hold up to 296 images at a time (-4 for error, apple music icon, play icon and pause icon).

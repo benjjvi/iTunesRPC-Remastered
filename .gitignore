@@ -6,6 +6,7 @@ current_song_info
 
 #pngs
 /images/*.png
+/images/dict
 
 #builds
 /build/AutoPyToExe Files/Debug Builds
@@ -16,3 +17,10 @@ current_song_info
 
 #logging
 log
+
+#server config and test files
+/upload/all_files
+/upload/*.png
+/upload/*.jpg
+/upload/client.py
+temp.png

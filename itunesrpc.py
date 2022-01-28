@@ -8,6 +8,7 @@ import platform  # for log info
 import time
 import psutil # for log info
 import sys #exit at end of program: for compatibility with PyInstaller
+import ast #used for secure evaluation of strings from server; ty Neko#0013
 
 #COM AND RPC LIBRARY
 import win32com.client
@@ -16,6 +17,7 @@ import pypresence
 #CUSTOM/MODIFIED LIBRARIES/MODULES
 from module.itrpc_logging import log_message
 from module.systray.traybar import SysTrayIcon
+import module.connect_to_server as networking
 
 #CONFIGURATION FILES
 f = open("config", "r")
@@ -29,7 +31,8 @@ x = open("current_song_info", "w")
 x.write(curr)
 x.close()
 
-#VARIABLES
+#CONSTS/VARS
+domain = open("domain", "r").read()
 global_pause = 5 #set this higher if you get rate limited often by discord servers (reccomended: 5)
 
 if config["slow_mode"] == True:
@@ -126,11 +129,31 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     if paused_track:
         track = "[PAUSED] " + track
 
+    path = (os.path.dirname(os.path.realpath(__file__))) + fr"\\" + str("temp") + ".png"
+
+    if path[:2] == r"\\":
+        exit("You are running on a network server.\nPlease use a local folder.")
+
+    o.CurrentTrack.Artwork.Item(1).SaveArtworkToFile(path)
+
+    artwork_url = networking.get("temp.png", domain, track, artist, album)
+    print(artwork_url)
+    print(str(artwork_url))
+    artwork_url = ast.literal_eval(str(artwork_url))
+
+    artwork_url = str(artwork_url[1]) + str(artwork_url[2])
+    artwork_url = "https://" + domain + "/itrpc/" + artwork_url
+
+    os.system("del temp.png")
+
     #log_message INFO
     log_message("Track: " + track)
     log_message("Artist: " + artist)
     log_message("Album: " + album)
-    log_message("Artwork Value: " + artwork_value)
+    log_message("Artwork URL: " + str(artwork_url))
+
+    pause_button = f"https://{domain}/itrpc/pause"
+    play_button = f"https://{domain}/itrpc/play"
 
     #timestamps for computing how far into the song we are
     if paused_track == False:
@@ -145,14 +168,14 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
 
         if paused_track == True:
             if paused != True:
-                DiscordRPC.update(details=track, state=artist, large_image=artwork_value, large_text=album, \
-                                small_image="pause", small_text="Paused on Apple Music", \
+                DiscordRPC.update(details=track, state=artist, large_image=artwork_url, large_text=album, \
+                                small_image=pause_button, small_text="Paused on Apple Music", \
                                 buttons=buttons)
                 paused = True
         else:
             if last_pos != False:
                 DiscordRPC.update(details=track, state=artist, start=starttime, end=endtime, \
-                                large_image=artwork_value, large_text=album, small_image="play", \
+                                large_image=artwork_url, large_text=album, small_image=play_button, \
                                 small_text="Playing on Apple Music", buttons=buttons)
             else:
                 last_pos = (o.CurrentTrack.Duration - o.PlayerPosition)
