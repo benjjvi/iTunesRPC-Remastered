@@ -5,7 +5,8 @@ import random
 import ast
 from PIL import Image
 
-from flask import Flask, request, jsonify, abort
+from flask import Flask, request, abort
+from html import escape
 
 app = Flask(__name__)          
 app.logger.setLevel(logging.DEBUG)
@@ -120,7 +121,7 @@ def uploadimage():
     image = img.save(file_name)
     print(f"Saved {file_name} from {file_db_entry}.")
     print(f"Returning {file_db_entry}.")
-    return {"entry": file_db_entry}
+    return escape({"entry": file_db_entry})
   
   
 def run_server_api():
