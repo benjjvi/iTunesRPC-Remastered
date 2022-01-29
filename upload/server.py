@@ -25,13 +25,17 @@ def check_cache():
     f.close()
 
     tmp = request.json
-    data = ast.literal_eval([tmp["title"], tmp["singer"], tmp["album"]])
+    x = str({"title": tmp["title"], "singer": tmp["singer"], "album": tmp["album"]})
+    data = ast.literal_eval(x)
+
+    if data["title"][:9] == "[PAUSED] ":
+        data["title"] = data["title"][9::]
 
     del tmp
 
     if type(data) != dict:
         typeprov = type(data)
-        print(f"Not provided dictionary, instead a {typeprov} was provided. Returning NoneType.")
+        print("Not provided a dict, instead a "+str(typeprov)+" was provided. Returning NoneType.")
         return "None"
 
     for key in db:
@@ -94,6 +98,11 @@ def uploadimage():
     print(f"Successful file name: {file_name}")
 
     title = request.json["title"]
+    print("First 9 chars of title: "+str(title[:9]))
+    print("Title from 10th char: "+str(title[9::]))
+    if title[:9] == "[PAUSED] ":
+        title = title[9::]
+
     singer = request.json["singer"]
     album = request.json["album"]
     
