@@ -19,7 +19,8 @@ def try_get_cached(domain, dict):
 def get(image_file, domain, title, singer, album):
     import base64
     import json    
-    import ast               
+    import ast
+    from html import unescape         
 
     import requests
 
@@ -39,7 +40,7 @@ def get(image_file, domain, title, singer, album):
         payload = json.dumps({"image": im_b64, "title": title, "singer": singer, "album": album})
         response = requests.post(api, data=payload, headers=headers)
 
-        data = response.text["data"]
+        data = unescape(response.text["entry"])
     else:
         data = status
 
