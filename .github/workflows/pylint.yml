@@ -1,5 +1,6 @@
 name: lint_python
 on: [pull_request, push]
+continue-on-error: true
 jobs:
   lint_python:
     runs-on: windows-latest
