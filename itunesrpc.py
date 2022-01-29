@@ -152,8 +152,8 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     log_message("Album: " + album)
     log_message("Artwork URL: " + str(artwork_url))
 
-    pause_button = f"https://{domain}/itrpc/pause"
-    play_button = f"https://{domain}/itrpc/play"
+    pause_button = f"https://{domain}/itrpc/pause.png"
+    play_button = f"https://{domain}/itrpc/play.png"
 
     #timestamps for computing how far into the song we are
     if paused_track == False:
