@@ -3,7 +3,7 @@ on: [pull_request, push]
 
 jobs:
   lint_python:
-  continue-on-error: true
+    continue-on-error: true
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
