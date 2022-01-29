@@ -56,13 +56,6 @@ except Exception as e:
     log_message("Error Occured: " + e)
     discord_path = "C: && cd %appdata% && cd .. && cd Local\\Discord && Update.exe --processStart Discord.exe"
 
-try:
-    dict = eval(open("dict", "r", encoding="utf-8").read()) #the encoding is needed for other charsets 
-                                                            #e.g cyrillic
-except Exception as e:
-    log_message("Error Occured: " + e)
-    dict = {}
-
 shutdown_systray = False
 buttons = [
     {"label": "View on GitHub", "url": "https://github.com/bildsben/iTunesRPC-Remastered"}    
@@ -116,14 +109,6 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     curr = str({"song":track, "artist":artist, "album":album})
     with open("current_song_info", "w", encoding="utf-8") as current: #save with context manager to allow for encoding= variable.
         current.write(curr)
-
-    try:
-        key_lookup = track + ":" + artist
-        artwork_value = str(dict[key_lookup]) #artwork is directly uploaded to discord developer portal
-    except Exception:
-        log_message("This song has not had its artwork uploaded to the Discord Developer Portal.")
-        log_message("Please upload it, and the Apple Music Icon will be gone.")
-        artwork_value = "apple_music_icon"
 
     #MODIFY TRACK TO HAVE PAUSED IF PAUSED ON APPLE MUSIC
     if paused_track:
@@ -218,11 +203,11 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
         #Since we may have had Discord closed for a while, we need to update our items.
         #Let's re call this definition, as it ensures we get the most recent values.
         #We can send our original arguments to this. It isn't a massive deal.
-        DiscordRPC, track, artist, album, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, \
+        DiscordRPC, track, artist, album, key_lookup, last_pos, paused = push_playing(o, DiscordRPC, \
                                                                 dict, last_pos, paused_track, moved_playhead)
 
     #Finally, regardless of what happened, let's return all our values.
-    return (DiscordRPC, track, artist, album, key_lookup, artwork_value, last_pos, paused)
+    return (DiscordRPC, track, artist, album, key_lookup, last_pos, paused)
 
 
 
@@ -350,14 +335,14 @@ while running:
                 special_push = True
                 skipped = True
                 log_message("Changed track. Getting regular fetch from push_playing.")
-                DiscordRPC, track, artist, album, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False) 
+                DiscordRPC, track, artist, album, key_lookup, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False) 
 
             if not paused or not skipped:
                 if last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < global_pause-1 and last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) >= 0:
                     special_push = True
                     # we are paused
                     log_message("Paused. Sending pause message to RPC.")
-                    DiscordRPC, track, artist, album, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, True, False)
+                    DiscordRPC, track, artist, album, key_lookup, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, True, False)
                 else:
                     paused = False
 
@@ -366,10 +351,10 @@ while running:
                     #this could also happen when a new song has started. that is why last_track == track is in this if statement
                     log_message("Track position moved over global_pause value, likely skipped forward/backward in the song.")
                     special_push = True
-                    DiscordRPC, track, artist, album, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, True)
+                    DiscordRPC, track, artist, album, key_lookup, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, True)
 
                 if special_push == False:
-                    DiscordRPC, track, artist, album, key_lookup, artwork_value, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
+                    DiscordRPC, track, artist, album, key_lookup, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
             else:
                 skipped = False
 
