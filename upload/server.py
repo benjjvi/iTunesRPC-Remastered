@@ -120,7 +120,7 @@ def uploadimage():
     image = img.save(file_name)
     print(f"Saved {file_name} from {file_db_entry}.")
     print(f"Returning {file_db_entry}.")
-    return str(file_db_entry)
+    return {"entry": file_db_entry}
   
   
 def run_server_api():
