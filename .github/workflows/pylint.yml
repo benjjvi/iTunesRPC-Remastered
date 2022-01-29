@@ -1,8 +1,9 @@
 name: lint_python
 on: [pull_request, push]
-continue-on-error: true
+
 jobs:
   lint_python:
+  continue-on-error: true
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
