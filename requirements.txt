@@ -2,3 +2,4 @@ PyWin32
 pypresence
 psutil
 PyQt5
+requests
