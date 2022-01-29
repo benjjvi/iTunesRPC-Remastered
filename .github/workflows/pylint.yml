@@ -1,23 +1,23 @@
-name: Pylint
-
-on: [push]
-
+name: lint_python
+on: [pull_request, push]
 jobs:
-  build:
+  lint_python:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10"]
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pylint
-    - name: Analysing the code with pylint
-      run: |
-        pylint $(git ls-files '*.py')
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: pip install --upgrade pip wheel
+      - run: pip install bandit black codespell flake8 isort mypy pytest pyupgrade safety
+      - run: bandit --recursive --skip B101,B311 .
+      - run: black --check . || true
+      - run: codespell --ignore-words-list="wee" --skip="*.css,*.js"
+      - run: flake8 . --count --ignore=E12,E2,F40,W29,W504 --max-complexity=10 --max-line-length=156 --show-source --statistics
+      - run: isort --check-only --profile black . || true
+      - run: pip install psutil
+      - run: pip install -e .
+      - run: mkdir -p .mypy_cache
+      - run: mypy --install-types --non-interactive . || true
+      - run: pytest . || true
+      - run: pytest --doctest-modules . || true
+      - run: shopt -s globstar && pyupgrade --py36-plus **/*.py || true
+      - run: safety check
