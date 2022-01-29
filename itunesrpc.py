@@ -203,11 +203,11 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
         #Since we may have had Discord closed for a while, we need to update our items.
         #Let's re call this definition, as it ensures we get the most recent values.
         #We can send our original arguments to this. It isn't a massive deal.
-        DiscordRPC, track, artist, album, key_lookup, last_pos, paused = push_playing(o, DiscordRPC, \
+        DiscordRPC, track, artist, album, last_pos, paused = push_playing(o, DiscordRPC, \
                                                                 dict, last_pos, paused_track, moved_playhead)
 
     #Finally, regardless of what happened, let's return all our values.
-    return (DiscordRPC, track, artist, album, key_lookup, last_pos, paused)
+    return (DiscordRPC, track, artist, album, last_pos, paused)
 
 
 
@@ -335,14 +335,14 @@ while running:
                 special_push = True
                 skipped = True
                 log_message("Changed track. Getting regular fetch from push_playing.")
-                DiscordRPC, track, artist, album, key_lookup, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False) 
+                DiscordRPC, track, artist, album, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False) 
 
             if not paused or not skipped:
                 if last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < global_pause-1 and last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) >= 0:
                     special_push = True
                     # we are paused
                     log_message("Paused. Sending pause message to RPC.")
-                    DiscordRPC, track, artist, album, key_lookup, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, True, False)
+                    DiscordRPC, track, artist, album, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, True, False)
                 else:
                     paused = False
 
@@ -351,10 +351,10 @@ while running:
                     #this could also happen when a new song has started. that is why last_track == track is in this if statement
                     log_message("Track position moved over global_pause value, likely skipped forward/backward in the song.")
                     special_push = True
-                    DiscordRPC, track, artist, album, key_lookup, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, True)
+                    DiscordRPC, track, artist, album, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, True)
 
                 if special_push == False:
-                    DiscordRPC, track, artist, album, key_lookup, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
+                    DiscordRPC, track, artist, album, last_pos, paused = push_playing(o, DiscordRPC, dict, last_pos, False, False)
             else:
                 skipped = False
 
