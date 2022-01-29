@@ -11,7 +11,8 @@ def try_get_cached(domain, dict):
     payload = json.dumps({"title": title, "singer": singer, "album": album})
     response = requests.post(api, data=payload, headers=headers)
 
-    status = eval(response.text)
+    import ast
+    status = ast.literal_eval(response.text)
 
     return status
 
@@ -40,7 +41,12 @@ def get(image_file, domain, title, singer, album):
         payload = json.dumps({"image": im_b64, "title": title, "singer": singer, "album": album})
         response = requests.post(api, data=payload, headers=headers)
 
-        data = unescape(response.text["entry"])
+        data = unescape(response.text)
+        print(data)
+
+        data = ast.literal_eval(data)["entry"]
+        print(data)
+
     else:
         data = status
 

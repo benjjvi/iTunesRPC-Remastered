@@ -4,12 +4,23 @@ import logging
 import random
 import ast
 from PIL import Image
+import magic
 
 from flask import Flask, request, abort
 from html import escape
 
 app = Flask(__name__)          
 app.logger.setLevel(logging.DEBUG)
+app.config['MAX_CONTENT_LENGTH'] = 2 * (10**5) #allow a maximum of 200kb length. no image is (usually) larger than 200kb, so this is good.
+
+def allowed_file(enc_data):
+    mimetype = magic.from_buffer(enc_data, mime=True)
+
+    if mimetype[:5] != "image":
+        return enc_data, False
+    else:
+        return enc_data, True
+
 
 @app.route("/")
 def index():
@@ -58,6 +69,9 @@ def uploadimage():
              
     im_b64 = request.json['image']
     img_bytes = base64.b64decode(im_b64.encode('utf-8'))
+    img_bytes, valid = allowed_file(img_bytes)
+    if not valid:
+        return escape({"entry": "False"})
     img = Image.open(io.BytesIO(img_bytes))
 
     file_ending = img.format
@@ -121,7 +135,7 @@ def uploadimage():
     image = img.save(file_name)
     print(f"Saved {file_name} from {file_db_entry}.")
     print(f"Returning {file_db_entry}.")
-    return escape({"entry": file_db_entry})
+    return escape(str({"entry": file_db_entry}))
   
   
 def run_server_api():

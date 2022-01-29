@@ -3,3 +3,6 @@ pypresence
 psutil
 PyQt5
 requests
+python-magic
+python-magic-bin
+libmagic
