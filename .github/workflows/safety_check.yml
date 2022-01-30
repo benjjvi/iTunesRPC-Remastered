@@ -3,10 +3,16 @@ on: [pull_request, push]
 
 jobs:
   safety:
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+    
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
       - run: pip install --user --upgrade pip wheel
       - run: pip install --user safety
       - run: safety check

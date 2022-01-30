@@ -3,10 +3,16 @@ on: [pull_request, push]
 
 jobs:
   bandit:
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+    
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
       - run: pip install --user --upgrade pip wheel
       - run: pip install --user bandit
       - run: bandit --recursive --skip B605,B110,B404,B602,B603,B311,B605,B607,B104 .

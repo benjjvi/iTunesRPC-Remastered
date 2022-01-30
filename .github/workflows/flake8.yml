@@ -3,10 +3,16 @@ on: [pull_request, push]
 
 jobs:
   flake8:
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+    
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
       - run: pip install --user --upgrade pip wheel
       - run: pip install --user flake8
       - run: flake8 . --count --ignore C901,E501,F403,F405,W503,E303,W605 --max-complexity=10 --max-line-length=156 --show-source --statistics
