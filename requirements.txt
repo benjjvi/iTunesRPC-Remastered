@@ -1,8 +1,8 @@
-PyWin32
-pypresence
-psutil
-PyQt5
-requests
-python-magic
-python-magic-bin
-libmagic
+PyWin32==303
+pypresence==4.2.1
+psutil==5.9.0
+PyQt5==5.15.6
+requests==2.27.1
+python-magic==0.4.24
+python-magic-bin==0.4.14
+libmagic==1.0
