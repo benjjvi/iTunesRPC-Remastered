@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+
 def log_message(message_as_text):
     print(str(message_as_text))
     message_as_text = str(message_as_text) + "\n"

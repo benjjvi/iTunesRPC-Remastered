@@ -12,16 +12,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 import sys
 
+
 def get_logger(log):
     global logger
     logger = log
     logger("module.itunesrpc_window.error_no_secret logger active.")
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("ERROR")
         MainWindow.resize(523, 145)
-        self.setWindowIcon(QtGui.QIcon('icon.ico'))
+        self.setWindowIcon(QtGui.QIcon("icon.ico"))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -52,8 +54,14 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "ERROR"))
         self.label.setText(_translate("MainWindow", "An Error Occured (E.001.NS)"))
-        self.label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt;\">Please read the README.md file packaged<br>with the download of this software.</span></p></body></html>"))
+        self.label_2.setText(
+            _translate(
+                "MainWindow",
+                '<html><head/><body><p><span style=" font-size:14pt;">Please read the README.md file packaged<br>with the download of this software.</span></p></body></html>',
+            )
+        )
         self.ok.setText(_translate("MainWindow", "Click here to continue."))
+
 
 class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -66,6 +74,7 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
     def close_win_error(self):
         logger("[ERROR-GUI] Closing ERROR GUI.")
         self.close()
+
 
 def start():
     error_app = QtWidgets.QApplication(sys.argv)

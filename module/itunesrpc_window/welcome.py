@@ -12,15 +12,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 import subprocess, os, ast
 
+
 def get_logger(log):
     global logger
     logger = log
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(523, 145)
-        self.setWindowIcon(QtGui.QIcon('icon.ico'))
+        self.setWindowIcon(QtGui.QIcon("icon.ico"))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -52,11 +54,21 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Welcome to iTunesRPC-Remastered"))
+        MainWindow.setWindowTitle(
+            _translate("MainWindow", "Welcome to iTunesRPC-Remastered")
+        )
         self.label.setText(_translate("MainWindow", "Welcome to iTunesRPC-Remastered"))
-        self.dont_show_on_startup.setText(_translate("MainWindow", "Don\'t show this window at start up."))
-        self.label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt;\">To access the main options window, right click on the <br>Apple Music icon in your system tray.</span></p></body></html>"))
+        self.dont_show_on_startup.setText(
+            _translate("MainWindow", "Don't show this window at start up.")
+        )
+        self.label_2.setText(
+            _translate(
+                "MainWindow",
+                '<html><head/><body><p><span style=" font-size:14pt;">To access the main options window, right click on the <br>Apple Music icon in your system tray.</span></p></body></html>',
+            )
+        )
         self.ok.setText(_translate("MainWindow", "OK, Thank You! :)"))
+
 
 class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -78,9 +90,16 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
         f.close()
         logger("[WELCOME-GUI] Config Info: " + str(conf))
 
-        conf["show_msg"] = not self.dont_show_on_startup.isChecked() #if the checkmark is checked we want
+        conf[
+            "show_msg"
+        ] = (
+            not self.dont_show_on_startup.isChecked()
+        )  # if the checkmark is checked we want
         # slow mode to be enabled, so we can just use the value that isChecked returns.
-        logger("[WELCOME-GUI] Key Stored: conf[\"show_msg\"] = " + str(not self.dont_show_on_startup.isChecked()))
+        logger(
+            '[WELCOME-GUI] Key Stored: conf["show_msg"] = '
+            + str(not self.dont_show_on_startup.isChecked())
+        )
 
         conf_str = str(conf)
         logger("[WELCOME-GUI] New Config File: " + conf_str)

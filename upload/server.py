@@ -1,5 +1,5 @@
-import io                 
-import base64                  
+import io
+import base64
 import logging
 import random
 import ast
@@ -9,9 +9,11 @@ import magic
 from flask import Flask, request, abort
 from html import escape
 
-app = Flask(__name__)          
+app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
-app.config['MAX_CONTENT_LENGTH'] = 2 * (10**5) #allow a maximum of 200kb length. no image is (usually) larger than 200kb, so this is good.
+app.config["MAX_CONTENT_LENGTH"] = 2 * (10**5)  
+# allow a maximum of 200kb length. no image is (usually) larger than 200kb, so this is good.
+
 
 def allowed_file(enc_data):
     mimetype = magic.from_buffer(enc_data, mime=True)
@@ -26,11 +28,13 @@ def allowed_file(enc_data):
 def index():
     return "<h1>401 - Unauthorised</h1>"
 
+
 @app.errorhandler(404)
 def errorhandle(e):
     return abort(401)
 
-@app.route("/Y2hlY2tfY2FjaGVkX2ZpbGVz", methods=['POST'])
+
+@app.route("/Y2hlY2tfY2FjaGVkX2ZpbGVz", methods=["POST"])
 def check_cache():
     f = open("all_files", "r")
     db = ast.literal_eval(f.read())
@@ -47,7 +51,11 @@ def check_cache():
 
     if type(data) != dict:
         typeprov = type(data)
-        print("Not provided a dict, instead a "+str(typeprov)+" was provided. Returning NoneType.")
+        print(
+            "Not provided a dict, instead a "
+            + str(typeprov)
+            + " was provided. Returning NoneType."
+        )
         return "None"
 
     for key in db:
@@ -60,15 +68,16 @@ def check_cache():
     print("No match found. Returning NoneType.")
     return "None"
 
-@app.route("/bGVhdmVfcmlnaHRfbm93", methods=['POST'])
+
+@app.route("/bGVhdmVfcmlnaHRfbm93", methods=["POST"])
 def uploadimage():
-    #print(request.json)   
-    if not request.json or 'image' not in request.json:
+    # print(request.json)
+    if not request.json or "image" not in request.json:
         print("No data sent or no image provided. Aborting with 400.")
         abort(400)
-             
-    im_b64 = request.json['image']
-    img_bytes = base64.b64decode(im_b64.encode('utf-8'))
+
+    im_b64 = request.json["image"]
+    img_bytes = base64.b64decode(im_b64.encode("utf-8"))
     img_bytes, valid = allowed_file(img_bytes)
     if not valid:
         return escape({"entry": "False"})
@@ -113,15 +122,19 @@ def uploadimage():
     print(f"Successful file name: {file_name}")
 
     title = request.json["title"]
-    print("First 9 chars of title: "+str(title[:9]))
-    print("Title from 10th char: "+str(title[9::]))
+    print("First 9 chars of title: " + str(title[:9]))
+    print("Title from 10th char: " + str(title[9::]))
     if title[:9] == "[PAUSED] ":
         title = title[9::]
 
     singer = request.json["singer"]
     album = request.json["album"]
-    
-    file_db_entry = [{"title": title, "singer": singer, "album": album}, file_name, file_ending]
+
+    file_db_entry = [
+        {"title": title, "singer": singer, "album": album},
+        file_name,
+        file_ending,
+    ]
     print(f"New db entry: {file_db_entry}")
 
     all_files.append(file_db_entry)
@@ -136,11 +149,11 @@ def uploadimage():
     print(f"Saved {file_name} from {file_db_entry}.")
     print(f"Returning {file_db_entry}.")
     return escape(str({"entry": file_db_entry}))
-  
-  
+
+
 def run_server_api():
-    app.run(host='0.0.0.0', port=7873)
-  
-  
-if __name__ == "__main__":     
+    app.run(host="0.0.0.0", port=7873)
+
+
+if __name__ == "__main__":
     run_server_api()

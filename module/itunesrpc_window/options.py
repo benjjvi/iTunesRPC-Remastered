@@ -12,8 +12,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 import os, subprocess, time, threading, ast
 
+
 def get_logger(log):
-    #get logger for window
+    # get logger for window
     global logger
     logger = log
     logger("module.itunesrpc_window.window_test logger active.")
@@ -25,7 +26,7 @@ class Ui_MainWindow(object):
         MainWindow.setEnabled(True)
         MainWindow.resize(516, 238)
         MainWindow.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-        self.setWindowIcon(QtGui.QIcon('icon.ico'))
+        self.setWindowIcon(QtGui.QIcon("icon.ico"))
         MainWindow.setAutoFillBackground(False)
         MainWindow.setAnimated(False)
         MainWindow.setUnifiedTitleAndToolBarOnMac(False)
@@ -95,15 +96,33 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "iTunesRPC-Remastered Settings"))
-        self.open_logs.setText(_translate("MainWindow", "Open the log file \n" "in Windows Notepad."))
-        self.slow_connection.setText(_translate("MainWindow", "Tick this if your computer\n" "is below the minimum \n" "recommended specs to \n" "run iTunesRPC\n" "Remastered."))
+        MainWindow.setWindowTitle(
+            _translate("MainWindow", "iTunesRPC-Remastered Settings")
+        )
+        self.open_logs.setText(
+            _translate("MainWindow", "Open the log file \n" "in Windows Notepad.")
+        )
+        self.slow_connection.setText(
+            _translate(
+                "MainWindow",
+                "Tick this if your computer\n"
+                "is below the minimum \n"
+                "recommended specs to \n"
+                "run iTunesRPC\n"
+                "Remastered.",
+            )
+        )
         self.settings_label.setText(_translate("MainWindow", "SETTINGS"))
         self.current_info.setText(_translate("MainWindow", "Currently Playing"))
         self.song.setText(_translate("MainWindow", "Song: "))
         self.artist.setText(_translate("MainWindow", "Artist: "))
         self.album.setText(_translate("MainWindow", "Album: "))
-        self.label.setText(_translate("MainWindow", "<html><head/><body><p>CHANGES MADE <b>WILL NOT</b> TAKE EFFECT UNTIL </p><p><i>iTunesRPC-Remastered</i> IS RESTARTED.</p></body></html>"))
+        self.label.setText(
+            _translate(
+                "MainWindow",
+                "<html><head/><body><p>CHANGES MADE <b>WILL NOT</b> TAKE EFFECT UNTIL </p><p><i>iTunesRPC-Remastered</i> IS RESTARTED.</p></body></html>",
+            )
+        )
 
     def closeEvent(self, event):
         logger("[GUI] CLOSING WINDOW")
@@ -121,7 +140,7 @@ class Ui_MainWindow(object):
         update = open(path_to_config, "w")
         update.write(str(prev))
         update.close()
-        
+
         logger("[GUI] SAVED gui_window_isOpen AS FALSE.")
 
         event.accept()
@@ -142,13 +161,12 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.open_logs.clicked.connect(self.open_log)
         self.slow_connection.stateChanged.connect(self.toggle_slow_connection)
-        
 
-        #code used to determine window state
-        #this function (__init__) gets ran every time the window opens
-        #closeEvent from the mainwindow class gets ran every time the window closes
-        #below code allows to set the self.to_update var to true
-        #this is used in the update defintion
+        # code used to determine window state
+        # this function (__init__) gets ran every time the window opens
+        # closeEvent from the mainwindow class gets ran every time the window closes
+        # below code allows to set the self.to_update var to true
+        # this is used in the update defintion
         self.path_to_config = self.get_to_root_dir + "\\config"
         self.path_to_config = self.path_to_config.replace("\\\\", "\\")
 
@@ -163,7 +181,7 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
 
         logger("[GUI] SAVED gui_window_isOpen AS TRUE.")
 
-        #start new thread calling self.update()
+        # start new thread calling self.update()
         update_thread = threading.Thread(target=self.update, args=())
         update_thread.start()
 
@@ -174,20 +192,20 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
             conf_file = ast.literal_eval(x.readline())
             x.close()
             self.to_update = conf_file["gui_window_isOpen"]
-            
+
             try:
-                #read in current song info
+                # read in current song info
                 path = self.get_to_root_dir + "\\current_song_info"
                 x = open(path, "r")
                 curr = ast.literal_eval(x.readline())
                 x.close()
 
-                #format strings
+                # format strings
                 song_format = "Song: " + curr["song"]
                 artist_format = "Artist: " + curr["artist"]
                 album_format = "Album: " + curr["album"]
 
-                #push strings
+                # push strings
                 self.song.setText(_translate("MainWindow", song_format))
                 self.artist.setText(_translate("MainWindow", artist_format))
                 self.album.setText(_translate("MainWindow", album_format))
@@ -199,9 +217,9 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
             logger("[GUI] Update ran.")
             time.sleep(1)
         logger("[GUI] Stopping update loop.")
-        
+
     def open_log(self):
-        cd_cmd = "C:\\Windows\\System32\\notepad.exe " + self.get_to_root_dir + '\\log'
+        cd_cmd = "C:\\Windows\\System32\\notepad.exe " + self.get_to_root_dir + "\\log"
         logger("[GUI] Running command: " + cd_cmd)
         os.system(cd_cmd)
 
@@ -214,9 +232,14 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
         f.close()
         logger("[GUI] Config Info: " + str(conf))
 
-        conf["slow_mode"] = self.slow_connection.isChecked() #if the checkmark is checked we want
+        conf[
+            "slow_mode"
+        ] = self.slow_connection.isChecked()  # if the checkmark is checked we want
         # slow mode to be enabled, so we can just use the value that isChecked returns.
-        logger("[GUI] Key Stored: conf[\"slow_mode\"] = " + str(self.slow_connection.isChecked()))
+        logger(
+            '[GUI] Key Stored: conf["slow_mode"] = '
+            + str(self.slow_connection.isChecked())
+        )
 
         conf_str = str(conf)
         logger("[GUI] New Config File: " + conf_str)
