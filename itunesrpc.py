@@ -6,8 +6,8 @@ import ast  # used for secure evaluation of strings from server; ty Neko#0013
 import os
 import platform  # for log info
 import sys  # exit at end of program: for compatibility with PyInstaller
-import time
 import tempfile
+import time
 
 import psutil  # for log info
 import pypresence
@@ -51,7 +51,11 @@ except Exception:
     ens.start()
     sys.exit()
 
-discord_command = os.getenv('LOCALAPPDATA').replace(" ", "\ ") + "\\Discord\\" + config["discord_command"]
+discord_command = (
+    os.getenv("LOCALAPPDATA").replace(" ", "\ ")
+    + "\\Discord\\"
+    + config["discord_command"]
+)
 
 shutdown_systray = False
 buttons = [
@@ -124,7 +128,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     artwork_url = str(artwork_url[1]) + str(artwork_url[2])
     artwork_url = "https://" + domain + "/itrpc/" + artwork_url
 
-    #os.remove(file_path)
+    # os.remove(file_path)
 
     # log_message INFO
     log_message("Track: " + track)

@@ -24,3 +24,6 @@ log
 /upload/*.jpg
 /upload/client.py
 temp.png
+
+#pre push checking files
+/.pre_push_checks

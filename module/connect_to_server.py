@@ -57,7 +57,7 @@ def get(image_file, domain, title, singer, album):
 
     # data = [{"title": title, "singer": singer, "album": album}, file_name, file_ending]
 
-    cmd = "del "+image_file
+    cmd = "del " + image_file
     os.system(cmd)
 
     return data
