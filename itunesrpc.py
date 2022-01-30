@@ -33,7 +33,7 @@ x.close()
 
 # CONSTS/VARS
 domain = open("domain", "r").read()
-global_pause = 5  # set this higher if you get rate limited often by discord servers (reccomended: 5)
+global_pause = 5  # set this higher if you get rate limited often by discord servers (recomended: 5)
 
 if config["slow_mode"] == True:
     global_pause += 5
@@ -57,7 +57,7 @@ try:
         "discord_command", "r"
     ).readline()  # this should be the command run to open discord
 except Exception as e:
-    log_message("Error Occured: " + e)
+    log_message("Error Occurred: " + e)
     discord_path = "C: && cd %appdata% && cd .. && cd Local\\Discord && Update.exe --processStart Discord.exe"
 
 shutdown_systray = False
@@ -158,7 +158,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     try:
         if moved_playhead:
             DiscordRPC.clear()  # get rid of the current status: the left count won't refresh otherwise.
-            time.sleep(0.1)  
+            time.sleep(0.1)
             # if we don't pause for a tiny amount the .update will send, and discord will
             # forget the .clear command.
 

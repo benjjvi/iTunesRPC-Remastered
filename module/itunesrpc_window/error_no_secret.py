@@ -53,7 +53,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "ERROR"))
-        self.label.setText(_translate("MainWindow", "An Error Occured (E.001.NS)"))
+        self.label.setText(_translate("MainWindow", "An Error Occurred (E.001.NS)"))
         self.label_2.setText(
             _translate(
                 "MainWindow",

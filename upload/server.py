@@ -11,7 +11,7 @@ from html import escape
 
 app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
-app.config["MAX_CONTENT_LENGTH"] = 2 * (10**5)  
+app.config["MAX_CONTENT_LENGTH"] = 2 * (10**5)
 # allow a maximum of 200kb length. no image is (usually) larger than 200kb, so this is good.
 
 

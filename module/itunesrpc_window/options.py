@@ -166,7 +166,7 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
         # this function (__init__) gets ran every time the window opens
         # closeEvent from the mainwindow class gets ran every time the window closes
         # below code allows to set the self.to_update var to true
-        # this is used in the update defintion
+        # this is used in the update definition
         self.path_to_config = self.get_to_root_dir + "\\config"
         self.path_to_config = self.path_to_config.replace("\\\\", "\\")
 
