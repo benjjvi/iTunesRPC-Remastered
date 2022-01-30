@@ -13,7 +13,7 @@ jobs:
       - run: bandit --recursive --skip B605,B110,B404,B602,B603,B311,B605,B607,B104 .
       - run: black --check . || true
       - run: codespell --skip="./build/*"
-      - run: flake8 . --count --ignore C901,E501,F403 --max-complexity=10 --max-line-length=156 --show-source --statistics
+      - run: flake8 . --count --ignore C901,E501,F403,F405,W503,E303 --max-complexity=10 --max-line-length=156 --show-source --statistics
       #- run: flake8 . --count --ignore=E12,E2,F40,W29,W504 --max-complexity=10 --max-line-length=156 --show-source --statistics
       - run: isort --check-only --profile black . || true
       - run: pip install psutil

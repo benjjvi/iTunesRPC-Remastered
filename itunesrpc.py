@@ -162,7 +162,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
             # if we don't pause for a tiny amount the .update will send, and discord will
             # forget the .clear command.
 
-        if paused_track == True:
+        if paused_track is True:
             if paused is not True:
                 DiscordRPC.update(
                     details=track,
