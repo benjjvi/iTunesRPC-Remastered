@@ -401,6 +401,9 @@ log_message("Closed connection to DiscordRPC.")
 systray.shutdown()
 log_message("Shutdown the Systray icon.")
 
+o.Quit()
+log_message("Closed iTunes connection.")
+
 p = open("config", "r")
 prev = eval(p.readline())
 p.close()
