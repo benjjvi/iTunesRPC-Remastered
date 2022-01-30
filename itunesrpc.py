@@ -21,7 +21,7 @@ import module.connect_to_server as networking
 
 #CONFIGURATION FILES
 f = open("config", "r")
-config = eval(f.read()) #returns dict
+config = ast.literal_eval(f.read()) #returns dict
 f.close()
 
 #FIX FOR WINDOW
@@ -405,7 +405,7 @@ o.Quit()
 log_message("Closed iTunes connection.")
 
 p = open("config", "r")
-prev = eval(p.readline())
+prev = ast.literal_eval(p.readline())
 p.close()
 prev["gui_window_isOpen"] = False
 update = open("config", "w")

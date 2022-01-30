@@ -1,11 +1,11 @@
 # encoding: utf-8
 
 import win32com.client
-import os, time
+import os, time, ast
 
 try:
     f = open("dict", "r", encoding="utf-8")
-    dictionary = eval(f.read())
+    dictionary = ast.literal_eval(f.read())
     f.close()
 except Exception:
     dictionary = {}
