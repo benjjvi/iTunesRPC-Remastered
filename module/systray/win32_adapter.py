@@ -89,59 +89,67 @@ def encode_for_locale(s):
     Encode text items for system locale. If encoding fails, fall back to ASCII.
     """
     try:
-        return s.encode(LOCALE_ENCODING, 'ignore')
+        return s.encode(LOCALE_ENCODING, "ignore")
     except (AttributeError, UnicodeDecodeError):
-        return s.decode('ascii', 'ignore').encode(LOCALE_ENCODING)
+        return s.decode("ascii", "ignore").encode(LOCALE_ENCODING)
+
 
 POINT = ctypes.wintypes.POINT
 RECT = ctypes.wintypes.RECT
 MSG = ctypes.wintypes.MSG
 
 LPFN_WNDPROC = ctypes.CFUNCTYPE(LRESULT, HANDLE, ctypes.c_uint, WPARAM, LPARAM)
+
+
 class WNDCLASS(ctypes.Structure):
-    _fields_ = [("style", ctypes.c_uint),
-                ("lpfnWndProc", LPFN_WNDPROC),
-                ("cbClsExtra", ctypes.c_int),
-                ("cbWndExtra", ctypes.c_int),
-                ("hInstance", HANDLE),
-                ("hIcon", HANDLE),
-                ("hCursor", HANDLE),
-                ("hbrBackground", HANDLE),
-                ("lpszMenuName", ctypes.c_char_p),
-                ("lpszClassName", ctypes.c_char_p),
-               ]
+    _fields_ = [
+        ("style", ctypes.c_uint),
+        ("lpfnWndProc", LPFN_WNDPROC),
+        ("cbClsExtra", ctypes.c_int),
+        ("cbWndExtra", ctypes.c_int),
+        ("hInstance", HANDLE),
+        ("hIcon", HANDLE),
+        ("hCursor", HANDLE),
+        ("hbrBackground", HANDLE),
+        ("lpszMenuName", ctypes.c_char_p),
+        ("lpszClassName", ctypes.c_char_p),
+    ]
+
 
 class MENUITEMINFO(ctypes.Structure):
-    _fields_ = [("cbSize", ctypes.c_uint),
-                ("fMask", ctypes.c_uint),
-                ("fType", ctypes.c_uint),
-                ("fState", ctypes.c_uint),
-                ("wID", ctypes.c_uint),
-                ("hSubMenu", HANDLE),
-                ("hbmpChecked", HANDLE),
-                ("hbmpUnchecked", HANDLE),
-                ("dwItemData", ctypes.c_void_p),
-                ("dwTypeData", ctypes.c_char_p),
-                ("cch", ctypes.c_uint),
-                ("hbmpItem", HANDLE),
-               ]
+    _fields_ = [
+        ("cbSize", ctypes.c_uint),
+        ("fMask", ctypes.c_uint),
+        ("fType", ctypes.c_uint),
+        ("fState", ctypes.c_uint),
+        ("wID", ctypes.c_uint),
+        ("hSubMenu", HANDLE),
+        ("hbmpChecked", HANDLE),
+        ("hbmpUnchecked", HANDLE),
+        ("dwItemData", ctypes.c_void_p),
+        ("dwTypeData", ctypes.c_char_p),
+        ("cch", ctypes.c_uint),
+        ("hbmpItem", HANDLE),
+    ]
+
 
 class NOTIFYICONDATA(ctypes.Structure):
-    _fields_ = [("cbSize", ctypes.c_uint),
-                ("hWnd", HANDLE),
-                ("uID", ctypes.c_uint),
-                ("uFlags", ctypes.c_uint),
-                ("uCallbackMessage", ctypes.c_uint),
-                ("hIcon", HANDLE),
-                ("szTip", ctypes.c_char * SZTIP_MAX_LENGTH),
-                ("dwState", ctypes.c_uint),
-                ("dwStateMask", ctypes.c_uint),
-                ("szInfo", ctypes.c_char * 256),
-                ("uTimeout", ctypes.c_uint),
-                ("szInfoTitle", ctypes.c_char * 64),
-                ("dwInfoFlags", ctypes.c_uint),
-                ("guidItem", ctypes.c_char * 16),
-               ]
+    _fields_ = [
+        ("cbSize", ctypes.c_uint),
+        ("hWnd", HANDLE),
+        ("uID", ctypes.c_uint),
+        ("uFlags", ctypes.c_uint),
+        ("uCallbackMessage", ctypes.c_uint),
+        ("hIcon", HANDLE),
+        ("szTip", ctypes.c_char * SZTIP_MAX_LENGTH),
+        ("dwState", ctypes.c_uint),
+        ("dwStateMask", ctypes.c_uint),
+        ("szInfo", ctypes.c_char * 256),
+        ("uTimeout", ctypes.c_uint),
+        ("szInfoTitle", ctypes.c_char * 64),
+        ("dwInfoFlags", ctypes.c_uint),
+        ("guidItem", ctypes.c_char * 16),
+    ]
     if sys.getwindowsversion().major >= 5:
         _fields_.append(("hBalloonIcon", HANDLE))
 
@@ -165,14 +173,17 @@ def PackMENUITEMINFO(text=None, hbmpItem=None, wID=None, hSubMenu=None):
         res.hSubMenu = hSubMenu
     return res
 
+
 def LOWORD(w):
     return w & 0xFFFF
+
 
 def PumpMessages():
     msg = MSG()
     while GetMessage(ctypes.byref(msg), None, 0, 0) > 0:
         TranslateMessage(ctypes.byref(msg))
         DispatchMessage(ctypes.byref(msg))
+
 
 def NotifyData(hWnd=0, uID=0, uFlags=0, uCallbackMessage=0, hIcon=0, szTip=""):
     szTip = encode_for_locale(szTip)[:SZTIP_MAX_LENGTH]
