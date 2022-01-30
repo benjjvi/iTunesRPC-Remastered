@@ -102,7 +102,7 @@ def uploadimage():
 
     attempt = 0
 
-    while file_name == None or file_name in all_files:
+    while file_name is None or file_name in all_files:
         if attempt <= 1000:
             file_name = random.randint(one_hundred_million, lots_of_nine)
 
@@ -145,7 +145,8 @@ def uploadimage():
 
     file_name = file_name + file_ending
 
-    image = img.save(file_name)
+    img.save(file_name)
+
     print(f"Saved {file_name} from {file_db_entry}.")
     print(f"Returning {file_db_entry}.")
     return escape(str({"entry": file_db_entry}))
