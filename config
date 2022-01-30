@@ -1,1 +1,7 @@
-{'slow_mode': False, 'show_msg': True, 'gui_window_isOpen': False}
+{
+    "slow_mode":False,
+    "show_msg":True,
+    "gui_window_isOpen":False,
+    "domain":"bildsben.hopto.org",
+    "discord_command":"Update.exe --processStart Discord.exe"
+}

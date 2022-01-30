@@ -22,6 +22,7 @@ def get(image_file, domain, title, singer, album):
     import ast
     import base64
     import json
+    import os
     from html import unescape
 
     import requests
@@ -30,6 +31,7 @@ def get(image_file, domain, title, singer, album):
 
     with open(image_file, "rb") as f:
         im_bytes = f.read()
+        f.close()
     im_b64 = base64.b64encode(im_bytes).decode("utf8")
 
     headers = {"Content-type": "application/json", "Accept": "text/plain"}
@@ -54,6 +56,9 @@ def get(image_file, domain, title, singer, album):
         data = status
 
     # data = [{"title": title, "singer": singer, "album": album}, file_name, file_ending]
+
+    cmd = "del "+image_file
+    os.system(cmd)
 
     return data
 

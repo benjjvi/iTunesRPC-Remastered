@@ -7,6 +7,7 @@ import os
 import platform  # for log info
 import sys  # exit at end of program: for compatibility with PyInstaller
 import time
+import tempfile
 
 import psutil  # for log info
 import pypresence
@@ -30,7 +31,7 @@ x.write(curr)
 x.close()
 
 # CONSTS/VARS
-domain = open("domain", "r").read()
+domain = config["domain"]
 global_pause = 5  # set this higher if you get rate limited often by discord servers (recommended: 5)
 
 if config["slow_mode"] is True:
@@ -50,13 +51,7 @@ except Exception:
     ens.start()
     sys.exit()
 
-try:
-    discord_path = open(
-        "discord_command", "r"
-    ).readline()  # this should be the command run to open discord
-except Exception as e:
-    log_message("Error Occurred: " + e)
-    discord_path = "C: && cd %appdata% && cd .. && cd Local\\Discord && Update.exe --processStart Discord.exe"
+discord_command = os.getenv('LOCALAPPDATA').replace(" ", "\ ") + "\\Discord\\" + config["discord_command"]
 
 shutdown_systray = False
 buttons = [
@@ -120,22 +115,16 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     if paused_track:
         track = "[PAUSED] " + track
 
-    path = (os.path.dirname(os.path.realpath(__file__))) + "\\" + str("temp") + ".png"
+    file_path = tempfile.gettempdir() + "\\temporary.png"
+    o.CurrentTrack.Artwork.Item(1).SaveArtworkToFile(file_path)
 
-    if path[:2] == r"\\":
-        exit("You are running on a network server.\nPlease use a local folder.")
-
-    o.CurrentTrack.Artwork.Item(1).SaveArtworkToFile(path)
-
-    artwork_url = networking.get("temp.png", domain, track, artist, album)
-    print(artwork_url)
-    print(str(artwork_url))
+    artwork_url = networking.get(file_path, domain, track, artist, album)
     artwork_url = ast.literal_eval(str(artwork_url))
 
     artwork_url = str(artwork_url[1]) + str(artwork_url[2])
     artwork_url = "https://" + domain + "/itrpc/" + artwork_url
 
-    os.remove("temp.png")
+    #os.remove(file_path)
 
     # log_message INFO
     log_message("Track: " + track)
@@ -206,7 +195,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
                 log_message("Hooked to Discord.")
             except Exception:
                 if not opened:
-                    os.system(discord_path)
+                    os.system(discord_command)
                     log_message("..........................................")
                     log_message(".           Discord is closed...         .")
                     log_message(".          Attempting to open it         .")
@@ -279,7 +268,7 @@ while DiscordRPC is False:
         log_message("Hooked to Discord.")
     except Exception:
         if not opened:
-            os.system(discord_path)
+            os.system(discord_command)
             log_message("..........................................")
             log_message(".           Discord is closed...         .")
             log_message(". Waiting for it to open before starting .")
