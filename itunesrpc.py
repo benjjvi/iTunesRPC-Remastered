@@ -2,24 +2,20 @@
 # iTuneRPC-Remastered
 # github.com/bildsben/iTunesRPC-Remastered
 
-# CORE LIBRARIES
+import ast  # used for secure evaluation of strings from server; ty Neko#0013
 import os
 import platform  # for log info
-import time
-import psutil  # for log info
 import sys  # exit at end of program: for compatibility with PyInstaller
-import ast  # used for secure evaluation of strings from server; ty Neko#0013
+import time
 
-# COM AND RPC LIBRARY
-import win32com.client
+import psutil  # for log info
 import pypresence
+import win32com.client
 
-# CUSTOM/MODIFIED LIBRARIES/MODULES
-from module.itrpc_logging import log_message
-from module.systray.traybar import SysTrayIcon
 import module.connect_to_server as networking
 import module.itunesrpc_window.main as itrpc_window
-
+from module.itrpc_logging import log_message
+from module.systray.traybar import SysTrayIcon
 
 # CONFIGURATION FILES
 f = open("config", "r")

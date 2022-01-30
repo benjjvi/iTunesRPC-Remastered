@@ -1,8 +1,9 @@
 # encoding: utf-8
 import os
-from .win32_adapter import *
 import threading
 import uuid
+
+from .win32_adapter import *
 
 
 class SysTrayIcon(object):

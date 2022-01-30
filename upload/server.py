@@ -1,13 +1,13 @@
-import io
+import ast
 import base64
+import io
 import logging
 import random
-import ast
-from PIL import Image
-import magic
-
-from flask import Flask, request, abort
 from html import escape
+
+import magic
+from flask import Flask, abort, request
+from PIL import Image
 
 app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)

@@ -1,9 +1,10 @@
 # encoding: utf-8
 
-import win32com.client
+import ast
 import os
 import time
-import ast
+
+import win32com.client
 
 try:
     f = open("dict", "r", encoding="utf-8")

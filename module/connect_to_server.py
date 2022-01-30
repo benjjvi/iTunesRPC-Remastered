@@ -1,7 +1,8 @@
 def try_get_cached(domain, dict):
-    import requests
-    import json
     import ast
+    import json
+
+    import requests
 
     title = dict["title"]
     singer = dict["singer"]
@@ -12,16 +13,15 @@ def try_get_cached(domain, dict):
     payload = json.dumps({"title": title, "singer": singer, "album": album})
     response = requests.post(api, data=payload, headers=headers)
 
-
     status = ast.literal_eval(response.text)
 
     return status
 
 
 def get(image_file, domain, title, singer, album):
+    import ast
     import base64
     import json
-    import ast
     from html import unescape
 
     import requests
