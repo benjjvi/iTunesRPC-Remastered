@@ -1,9 +1,8 @@
 # encoding: utf-8
 # wrapper for the window.py app
-import os
 import sys
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets
 
 import module.itunesrpc_window.options as options
 import module.itunesrpc_window.welcome as welcome

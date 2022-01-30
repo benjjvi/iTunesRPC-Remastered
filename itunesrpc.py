@@ -18,6 +18,8 @@ import pypresence
 from module.itrpc_logging import log_message
 from module.systray.traybar import SysTrayIcon
 import module.connect_to_server as networking
+import module.itunesrpc_window.main as itrpc_window
+
 
 # CONFIGURATION FILES
 f = open("config", "r")
@@ -35,7 +37,7 @@ x.close()
 domain = open("domain", "r").read()
 global_pause = 5  # set this higher if you get rate limited often by discord servers (recommended: 5)
 
-if config["slow_mode"] == True:
+if config["slow_mode"] is True:
     global_pause += 5
 
 try:
@@ -69,9 +71,6 @@ buttons = [
 ]
 
 
-# WINDOW
-import module.itunesrpc_window.main as itrpc_window
-
 itrpc_window.get_logger(log_message)  # send the logger instance
 # main cannot access the logger otherwise.
 itrpc_window.send_logger()
@@ -79,8 +78,9 @@ itrpc_window.send_logger()
 
 # the window can be opened by requesting the window in the system tray
 # show brief message telling user about this.
-if config["show_msg"] == True:
+if config["show_msg"] is True:
     itrpc_window.start_welcome()
+
 
 # LOGGING
 # first start: clean log messages and dump systeminfo
@@ -124,7 +124,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     if paused_track:
         track = "[PAUSED] " + track
 
-    path = (os.path.dirname(os.path.realpath(__file__))) + rf"\\" + str("temp") + ".png"
+    path = (os.path.dirname(os.path.realpath(__file__))) + "\\" + str("temp") + ".png"
 
     if path[:2] == r"\\":
         exit("You are running on a network server.\nPlease use a local folder.")
@@ -151,7 +151,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     play_button = f"https://{domain}/itrpc/play.png"
 
     # timestamps for computing how far into the song we are
-    if paused_track == False:
+    if paused_track is False:
         starttime = int(time.time()) - o.PlayerPosition
         endtime = int(time.time()) + (o.CurrentTrack.Duration - o.PlayerPosition)
 
@@ -163,7 +163,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
             # forget the .clear command.
 
         if paused_track == True:
-            if paused != True:
+            if paused is not True:
                 DiscordRPC.update(
                     details=track,
                     state=artist,
@@ -175,7 +175,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
                 )
                 paused = True
         else:
-            if last_pos != False:
+            if last_pos is not False:
                 DiscordRPC.update(
                     details=track,
                     state=artist,
@@ -190,7 +190,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
             else:
                 last_pos = o.CurrentTrack.Duration - o.PlayerPosition
 
-    except Exception as e:
+    except Exception:
         # Discord is closed if we error here.
         # Let's re open it.
         log_message("..........................................")
@@ -203,7 +203,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
         DiscordRPC = False
         opened = False
 
-        while DiscordRPC == False:
+        while DiscordRPC is False:
             try:
                 DiscordRPC = pypresence.Presence(secret, pipe=0)
                 DiscordRPC.connect()
@@ -271,7 +271,7 @@ log_message("Hooked to iTunes COM.")
 # CONNECTING TO DISCORD
 DiscordRPC = False
 opened = False
-while DiscordRPC == False:
+while DiscordRPC is False:
     if shutdown_systray:
         log_message("No connection to DiscordRPC, so not closing.")
         systray.shutdown()
@@ -344,7 +344,7 @@ while running:
         except Exception:
             stopped = True
 
-        if stopped == False:
+        if stopped is False:
             log_message("------------------")
 
             # update the last track to be the variable that was playing 5 seconds ago and
@@ -406,7 +406,7 @@ while running:
                         o, DiscordRPC, dict, last_pos, False, True
                     )
 
-                if special_push == False:
+                if special_push is False:
                     DiscordRPC, track, artist, album, last_pos, paused = push_playing(
                         o, DiscordRPC, dict, last_pos, False, False
                     )

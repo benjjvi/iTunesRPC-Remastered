@@ -10,7 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-import subprocess, os, ast
+import subprocess
+import ast
 
 
 def get_logger(log):

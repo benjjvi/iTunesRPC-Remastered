@@ -1,7 +1,9 @@
 # encoding: utf-8
 
 import win32com.client
-import os, time, ast
+import os
+import time
+import ast
 
 try:
     f = open("dict", "r", encoding="utf-8")
@@ -29,7 +31,7 @@ o = win32com.client.gencache.EnsureDispatch(
 
 while run:
     i += 1
-    path = (os.path.dirname(os.path.realpath(__file__))) + rf"\\" + str(i) + ".png"
+    path = (os.path.dirname(os.path.realpath(__file__))) + "\\" + str(i) + ".png"
 
     if path[:2] == r"\\":
         print("You are running on a network server.")

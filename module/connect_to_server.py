@@ -1,17 +1,17 @@
 def try_get_cached(domain, dict):
+    import requests
+    import json
+    import ast
+
     title = dict["title"]
     singer = dict["singer"]
     album = dict["album"]
 
-    import requests, json
-
     api = f"http://{domain}:7873/Y2hlY2tfY2FjaGVkX2ZpbGVz"
-
     headers = {"Content-type": "application/json", "Accept": "text/plain"}
     payload = json.dumps({"title": title, "singer": singer, "album": album})
     response = requests.post(api, data=payload, headers=headers)
 
-    import ast
 
     status = ast.literal_eval(response.text)
 
@@ -37,7 +37,7 @@ def get(image_file, domain, title, singer, album):
     status = try_get_cached(domain, {"title": title, "singer": singer, "album": album})
     status = ast.literal_eval(str(status))
 
-    if status == None:
+    if status is None:
         print("Cached version not found. Uploading image with song metadata.")
         payload = json.dumps(
             {"image": im_b64, "title": title, "singer": singer, "album": album}
