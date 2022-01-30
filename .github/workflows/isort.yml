@@ -7,6 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install --upgrade pip wheel
-      - run: pip install isort
+      - run: pip install --user --upgrade pip wheel
+      - run: pip install --user isort
       - run: isort --check-only --profile black .
