@@ -1,0 +1,12 @@
+name: safety
+on: [pull_request, push]
+
+jobs:
+  safety:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: pip install --upgrade pip wheel
+      - run: pip install safety
+      - run: safety check

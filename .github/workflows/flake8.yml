@@ -1,0 +1,12 @@
+name: flake8
+on: [pull_request, push]
+
+jobs:
+  flake8:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: pip install --upgrade pip wheel
+      - run: pip install flake8
+      - run: flake8 . --count --ignore C901,E501,F403,F405,W503,E303 --max-complexity=10 --max-line-length=156 --show-source --statistics

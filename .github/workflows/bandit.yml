@@ -1,0 +1,12 @@
+name: bandit
+on: [pull_request, push]
+
+jobs:
+  bandit:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: pip install --upgrade pip wheel
+      - run: pip install bandit
+      - run: bandit --recursive --skip B605,B110,B404,B602,B603,B311,B605,B607,B104 .
