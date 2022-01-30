@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-import os, subprocess, time, threading
+import os, subprocess, time, threading, ast
 
 def get_logger(log):
     #get logger for window
@@ -108,14 +108,14 @@ class Ui_MainWindow(object):
     def closeEvent(self, event):
         logger("[GUI] CLOSING WINDOW")
 
-        proc = subprocess.Popen("cd", shell=True, stdout=subprocess.PIPE)
+        proc = subprocess.Popen("cd", shell=False, stdout=subprocess.PIPE)
         get_to_root_dir = proc.stdout.read().decode("utf-8").replace("\r\n", "")
 
         path_to_config = get_to_root_dir + "\\config"
         path_to_config = path_to_config.replace("\\\\", "\\")
 
         p = open(path_to_config, "r")
-        prev = eval(p.readline())
+        prev = ast.literal_eval(p.readline())
         p.close()
         prev["gui_window_isOpen"] = False
         update = open(path_to_config, "w")
@@ -153,7 +153,7 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
         self.path_to_config = self.path_to_config.replace("\\\\", "\\")
 
         p = open(self.path_to_config, "r")
-        prev = eval(p.readline())
+        prev = ast.literal_eval(p.readline())
         p.close()
         prev["gui_window_isOpen"] = True
         update = open(self.path_to_config, "w")
@@ -171,7 +171,7 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
         _translate = self._translate
         while self.to_update:
             x = open("config", "r")
-            conf_file = eval(x.readline())
+            conf_file = ast.literal_eval(x.readline())
             x.close()
             self.to_update = conf_file["gui_window_isOpen"]
             
@@ -179,7 +179,7 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
                 #read in current song info
                 path = self.get_to_root_dir + "\\current_song_info"
                 x = open(path, "r")
-                curr = eval(x.readline())
+                curr = ast.literal_eval(x.readline())
                 x.close()
 
                 #format strings
@@ -210,7 +210,7 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
 
         logger("[GUI] Reading config file.")
         f = open(path_to_config, "r")
-        conf = eval(f.read())
+        conf = ast.literal_eval(f.read())
         f.close()
         logger("[GUI] Config Info: " + str(conf))
 

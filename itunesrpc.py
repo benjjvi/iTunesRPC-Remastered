@@ -80,7 +80,7 @@ if config["show_msg"] == True:
 #none of this is automatically uploaded, but it should be 
 #sent within error reports on GitHub, as it may help determine 
 #your issue
-os.system("del log") #delete the old log file.
+os.remove("log") #delete the old log file.
 log_message("Starting system log dump.")
 log_message("Machine Architecture: " + platform.machine())
 log_message("Machine Version:" + platform.version())
@@ -129,7 +129,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     artwork_url = str(artwork_url[1]) + str(artwork_url[2])
     artwork_url = "https://" + domain + "/itrpc/" + artwork_url
 
-    os.system("del temp.png")
+    os.remove("temp.png")
 
     #log_message INFO
     log_message("Track: " + track)

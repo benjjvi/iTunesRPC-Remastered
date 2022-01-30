@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-import subprocess, os
+import subprocess, os, ast
 
 def get_logger(log):
     global logger
@@ -74,7 +74,7 @@ class Logic(QtWidgets.QMainWindow, Ui_MainWindow):
         path_to_config = path_to_config.replace("\\\\", "\\")
         logger("[WELCOME-GUI] Reading config file.")
         f = open(path_to_config, "r")
-        conf = eval(f.read())
+        conf = ast.literal_eval(f.read())
         f.close()
         logger("[WELCOME-GUI] Config Info: " + str(conf))
 

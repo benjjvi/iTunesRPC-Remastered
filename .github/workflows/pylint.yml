@@ -10,7 +10,7 @@ jobs:
       - uses: actions/setup-python@v2
       - run: pip install --upgrade pip wheel
       - run: pip install bandit black codespell flake8 isort mypy pytest pyupgrade safety
-      - run: bandit --recursive .
+      - run: bandit --recursive --skip B605,B110,B404,B602,B605,B607,B104 .
       - run: black --check . || true
       - run: codespell --ignore-words-list="wee" --skip="*.css,*.js, test.*, "
       - run: flake8 . --count --ignore=E12,E2,F40,W29,W504 --max-complexity=10 --max-line-length=156 --show-source --statistics
