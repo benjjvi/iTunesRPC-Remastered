@@ -33,7 +33,7 @@ x.close()
 
 # CONSTS/VARS
 domain = open("domain", "r").read()
-global_pause = 5  # set this higher if you get rate limited often by discord servers (recomended: 5)
+global_pause = 5  # set this higher if you get rate limited often by discord servers (recommended: 5)
 
 if config["slow_mode"] == True:
     global_pause += 5
