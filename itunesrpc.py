@@ -449,7 +449,7 @@ o.Quit()
 log_message("Closed iTunes connection.")
 
 p = open("config", "r")
-prev = ast.literal_eval(p.readline())
+prev = ast.literal_eval(p.read())
 p.close()
 prev["gui_window_isOpen"] = False
 update = open("config", "w")
