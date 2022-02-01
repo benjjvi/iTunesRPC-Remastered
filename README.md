@@ -16,7 +16,7 @@ Current Line Count: ```1,362 (Last count @ 23:01, 28 Jan 2022)```
 
 ## LICENSES
 
-This repository contains code from INFIDAT with their infi.systray code. Their license for the code can be found [here](/LICENSES/INFIDAT-License). This repository also contains code from qwertyqwerty with their pypresence library. Their license for the code can be found [here](/LICENSES/pypresence-License). Additionally, the repository is licenses under its own ```Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)``` License. The simplified version can be found [here](/LICENSES/Simplified-iTunesRPC-License), and the full version can be found [here](/LICENSES/Full-iTunesRPC-License). In the case of a legal dispute, the one applicable by law to the code provided in this software is the [full license](/LICENSES/Full-iTunesRPC-License). 
+This repository contains code from INFIDAT with their infi.systray code. Their license for the code can be found [here](/LICENSES/INFIDAT-License). This repository also contains code from qwertyqwerty with their pypresence library. Their license for the code can be found [here](/LICENSES/pypresence-License). Additionally, the repository is licensed under its own ```Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)``` License. The simplified version can be found [here](/LICENSES/Simplified-iTunesRPC-License), and the full version can be found [here](/LICENSES/Full-iTunesRPC-License). In the case of a legal dispute, the one applicable by law to the code provided in this software is the [full license](/LICENSES/Full-iTunesRPC-License). 
 
 ## TROUBLESHOOTING
 
