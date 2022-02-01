@@ -19,10 +19,8 @@ current_song_info
 log
 
 #server config and test files
-/upload/all_files
 /upload/*.png
 /upload/*.jpg
-/upload/client.py
 temp.png
 
 #testing files

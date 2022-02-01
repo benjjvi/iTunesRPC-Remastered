@@ -4,6 +4,7 @@ import io
 import logging
 import random
 from html import escape
+from os import remove
 
 import magic
 from flask import Flask, abort, request
@@ -13,6 +14,18 @@ app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
 app.config["MAX_CONTENT_LENGTH"] = 2 * (10**5)
 # allow a maximum of 200kb length. no image is (usually) larger than 200kb, so this is good.
+
+
+def get_config():
+    f = open("config", "r")
+    conf = ast.literal_eval(f.read())
+    f.close()
+
+    cache_size = conf["max_cache_size"]
+    host = conf["host"]
+    port = conf["port"]
+
+    return cache_size, host, port
 
 
 def allowed_file(enc_data):
@@ -36,6 +49,14 @@ def errorhandle(e):
 
 @app.route("/Y2hlY2tfY2FjaGVkX2ZpbGVz", methods=["POST"])
 def check_cache():
+    # Explanation on Caching
+    # -- BV
+    # Originally, I was going to have the script cache here, where it actually checks the cache. However,
+    # I soon realised that the all_files file is only modified in the other function to add to the file.
+    # Because of this, we only really need to check the cache status there, and see if it is over the
+    # cache limit in that function. The only thing we have to do here in relation to caching is moving items
+    # to the end of the array.
+
     f = open("all_files", "r")
     db = ast.literal_eval(f.read())
     f.close()
@@ -62,6 +83,20 @@ def check_cache():
         print(f"Analysing data {data} against item(s) {key[0]}.")
         if data == key[0]:
             print("Found match for " + str(data) + " in database.")
+
+            # caching
+            new_data = []
+            for y in db:
+                if y[0] == data:
+                    x = y
+                else:
+                    new_data.append(y)
+            new_data.append(x)
+
+            f = open("all_files", "w")
+            f.write(str(new_data))
+            f.close()
+
             print("Returning dictionary: " + str(key))
             return str(key)
 
@@ -122,8 +157,6 @@ def uploadimage():
     print(f"Successful file name: {file_name}")
 
     title = request.json["title"]
-    print("First 9 chars of title: " + str(title[:9]))
-    print("Title from 10th char: " + str(title[9::]))
     if title[:9] == "[PAUSED] ":
         title = title[9::]
 
@@ -139,6 +172,27 @@ def uploadimage():
 
     all_files.append(file_db_entry)
 
+    # caching
+    # we want a limit of X amount of files as defined by the config
+
+    # 1. see how long the list is
+    # 2. if it is over get_config()'s cache limit, delete value [0]
+    # 3. delete it on disk.
+
+    cache, x, y = get_config()
+    del x
+    del y
+
+    length = len(all_files)
+    while (
+        length > cache
+    ):  # if it is not over the limit, it will skip. if it is, it does this.
+        # if we have gone over our cache limit, let's delete the first entry.
+        filename = all_files[0][1] + all_files[0][2]
+        remove(filename)
+        del all_files[0]
+        length = len(all_files)
+
     f = open("all_files", "w")
     f.write(str(all_files))
     f.close()
@@ -153,7 +207,8 @@ def uploadimage():
 
 
 def run_server_api():
-    app.run(host="0.0.0.0", port=7873)
+    cache, host, port = get_config()
+    app.run(host=host, port=port)
 
 
 if __name__ == "__main__":
