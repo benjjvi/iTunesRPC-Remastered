@@ -5,7 +5,7 @@ import logging
 import random
 from html import escape
 from os import remove
-
+import werkzeug.utils
 import magic
 from flask import Flask, abort, request
 from PIL import Image
@@ -189,7 +189,7 @@ def uploadimage():
     ):  # if it is not over the limit, it will skip. if it is, it does this.
         # if we have gone over our cache limit, let's delete the first entry.
         filename = all_files[0][1] + all_files[0][2]
-        remove(filename)
+        remove(werkzeug.utils.secure_filename(filename))
         del all_files[0]
         length = len(all_files)
 
