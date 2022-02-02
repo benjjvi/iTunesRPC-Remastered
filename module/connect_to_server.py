@@ -27,7 +27,7 @@ def get(image_file, domain, title, singer, album):
 
     import requests
 
-    image_file = str(image_file).replace("DOT", ".")
+    image_file = str(image_file)
 
     api = f"http://{domain}:7873/bGVhdmVfcmlnaHRfbm93"
 

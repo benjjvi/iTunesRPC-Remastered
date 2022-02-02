@@ -121,7 +121,7 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     file_path = os.getcwd() + "\\temporary.png"
     o.CurrentTrack.Artwork.Item(1).SaveArtworkToFile(file_path)
 
-    artwork_url = networking.get("temporaryDOTpng", domain, track, artist, album)
+    artwork_url = networking.get("temporary.png", domain, track, artist, album)
     artwork_url = ast.literal_eval(str(artwork_url))
 
     artwork_url = str(artwork_url[1]) + str(artwork_url[2])
