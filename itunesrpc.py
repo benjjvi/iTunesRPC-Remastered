@@ -6,7 +6,6 @@ import ast  # used for secure evaluation of strings from server; ty Neko#0013
 import os
 import platform  # for log info
 import sys  # exit at end of program: for compatibility with PyInstaller
-import tempfile
 import time
 
 import psutil  # for log info
@@ -119,10 +118,10 @@ def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     if paused_track:
         track = "[PAUSED] " + track
 
-    file_path = tempfile.gettempdir() + "\\temporary.png"
+    file_path = os.getcwd() + "\\temporary.png"
     o.CurrentTrack.Artwork.Item(1).SaveArtworkToFile(file_path)
 
-    artwork_url = networking.get(file_path, domain, track, artist, album)
+    artwork_url = networking.get("temporaryDOTpng", domain, track, artist, album)
     artwork_url = ast.literal_eval(str(artwork_url))
 
     artwork_url = str(artwork_url[1]) + str(artwork_url[2])

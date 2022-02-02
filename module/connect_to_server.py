@@ -27,7 +27,9 @@ def get(image_file, domain, title, singer, album):
     import werkzeug.utils
     import requests
 
-    image_file = werkzeug.utils.secure_filename(ast.literal_eval(image_file))
+    x = ""
+    image_file = str(image_file).replace("DOT", ".")
+
 
     api = f"http://{domain}:7873/bGVhdmVfcmlnaHRfbm93"
 
