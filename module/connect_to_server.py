@@ -24,8 +24,10 @@ def get(image_file, domain, title, singer, album):
     import json
     import os
     from html import unescape
-
+    import werkzeug.utils
     import requests
+
+    image_file = werkzeug.utils.secure_filename(ast.literal_eval(image_file))
 
     api = f"http://{domain}:7873/bGVhdmVfcmlnaHRfbm93"
 
