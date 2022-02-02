@@ -24,12 +24,10 @@ def get(image_file, domain, title, singer, album):
     import json
     import os
     from html import unescape
-    import werkzeug.utils
+
     import requests
 
-    x = ""
     image_file = str(image_file).replace("DOT", ".")
-
 
     api = f"http://{domain}:7873/bGVhdmVfcmlnaHRfbm93"
 

@@ -5,8 +5,9 @@ import logging
 import random
 from html import escape
 from os import remove
-import werkzeug.utils
+
 import magic
+import werkzeug.utils
 from flask import Flask, abort, request
 from PIL import Image
 
