@@ -1,8 +1,8 @@
-name: safety
+name: safety_server_req
 on: [pull_request, push]
 
 jobs:
-  safety:
+  safety_server_req:
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
