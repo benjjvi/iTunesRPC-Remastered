@@ -17,85 +17,6 @@ import module.itunesrpc_window.main as itrpc_window
 from module.itrpc_logging import log_message
 from module.systray.traybar import SysTrayIcon
 
-# CONFIGURATION FILES
-f = open("config", "r")
-config = ast.literal_eval(f.read())  # returns dict
-f.close()
-
-# FIX FOR WINDOW
-# this fix sets current song to not playing, artist to nothing and album to nothing.
-curr = str({"song": "Not Playing", "artist": "", "album": ""})
-x = open("current_song_info", "w")
-x.write(curr)
-x.close()
-
-# CONSTS/VARS
-domain = config["domain"]
-global_pause = 5  # set this higher if you get rate limited often by discord servers (recommended: 5)
-
-if config["slow_mode"] is True:
-    global_pause += 5
-
-try:
-    import secret
-
-    app_ID = secret.return_secret()
-    del secret
-    secret = app_ID
-    del app_ID
-except Exception:
-    import module.itunesrpc_window.error_no_secret as ens  # error no secret (E.001.NS)
-
-    ens.get_logger(log_message)
-    ens.start()
-    sys.exit()
-
-discord_command = (
-    os.getenv("LOCALAPPDATA").replace(" ", "\ ")
-    + "\\Discord\\"
-    + config["discord_command"]
-)
-
-shutdown_systray = False
-buttons = [
-    {
-        "label": "View on GitHub",
-        "url": "https://github.com/bildsben/iTunesRPC-Remastered",
-    }
-]
-
-
-itrpc_window.get_logger(log_message)  # send the logger instance
-# main cannot access the logger otherwise.
-itrpc_window.send_logger()
-# this sends the logger to window_test
-
-# the window can be opened by requesting the window in the system tray
-# show brief message telling user about this.
-if config["show_msg"] is True:
-    itrpc_window.start_welcome()
-
-
-# LOGGING
-# first start: clean log messages and dump systeminfo
-# none of this is automatically uploaded, but it should be
-# sent within error reports on GitHub, as it may help determine
-# your issue
-os.remove("log")  # delete the old log file.
-log_message("Starting system log dump.")
-log_message("Machine Architecture: " + platform.machine())
-log_message("Machine Version:" + platform.version())
-log_message("Machine Platform: " + platform.platform())
-log_message("Machine Unix Name: " + str(platform.uname()))
-log_message("OS Type: " + platform.system())
-log_message("Processor: " + platform.processor())
-log_message(
-    "Total RAM: " + str(round(psutil.virtual_memory().total / (1024.0**3))) + " GB"
-)
-log_message("End of system logs.\n")
-log_message("Starting iTunesRPC logs.")
-
-
 # DEFINITIONS
 def push_playing(o, DiscordRPC, dict, last_pos, paused_track, moved_playhead):
     paused = False
@@ -236,182 +157,146 @@ def toggle_rpc(systray):
     time.sleep(global_pause + 1)
     DiscordRPC.clear()
 
+if __name__ == "__main__":
+    # CONFIGURATION FILES
+    f = open("config", "r")
+    config = ast.literal_eval(f.read())  # returns dict
+    f.close()
 
-# SYSTRAY MENU OPTIONS AND MAKING THE ICON
-menu_options = (
-    ("Show Window", None, itrpc_window.start),
-    ("Toggle Rich Presence", None, toggle_rpc),
-    ("Shutdown iTunesRPC Safely", None, exit_program),
-)
-systray = SysTrayIcon("icon.ico", "iTunesRPC", menu_options)
-systray.start()
-log_message("Started Systray icon.")
+    # FIX FOR WINDOW
+    # this fix sets current song to not playing, artist to nothing and album to nothing.
+    curr = str({"song": "Not Playing", "artist": "", "album": ""})
+    x = open("current_song_info", "w")
+    x.write(curr)
+    x.close()
 
+    # CONSTS/VARS
+    domain = config["domain"]
+    global_pause = 5  # set this higher if you get rate limited often by discord servers (recommended: 5)
 
-# GETTING THE ITUNES COM CONNECTION
-o = win32com.client.gencache.EnsureDispatch(
-    "iTunes.Application"
-)  # connect to the COM of iTunes.Application
-log_message("Hooked to iTunes COM.")
-# NOTE: win32com.client.gencache.EnsureDispatch will force open the application if not already open
+    if config["slow_mode"] is True:
+        global_pause += 5
 
-
-# CONNECTING TO DISCORD
-DiscordRPC = False
-opened = False
-while DiscordRPC is False:
-    if shutdown_systray:
-        log_message("No connection to DiscordRPC, so not closing.")
-        systray.shutdown()
-        log_message("Shutdown the Systray icon.")
-        quit("Shutdown the Python program.")
     try:
-        DiscordRPC = pypresence.Presence(secret, pipe=0)
-        DiscordRPC.connect()
-        log_message("Hooked to Discord.")
+        import secret
+
+        app_ID = secret.return_secret()
+        del secret
+        secret = app_ID
+        del app_ID
     except Exception:
-        if not opened:
-            os.system(discord_command)
-            log_message("..........................................")
-            log_message(".           Discord is closed...         .")
-            log_message(". Waiting for it to open before starting .")
-            log_message(". Waiting global_pause+3 seconds before  .")
-            log_message(".               continuing.              .")
-            log_message("..........................................")
-            opened = True
-        time.sleep(
-            global_pause + 3
-        )  # takes a while to open discord on lower end hardware so account for that here
-        continue
+        import module.itunesrpc_window.error_no_secret as ens  # error no secret (E.001.NS)
+
+        ens.get_logger(log_message)
+        ens.start()
+        sys.exit()
+
+    discord_command = (
+        os.getenv("LOCALAPPDATA").replace(" ", "\ ")
+        + "\\Discord\\"
+        + config["discord_command"]
+    )
+
+    shutdown_systray = False
+    buttons = [
+        {
+            "label": "View on GitHub",
+            "url": "https://github.com/bildsben/iTunesRPC-Remastered",
+        }
+    ]
 
 
-# GET LAST POSITION OF TRACK
-stopped = True
-while stopped:
-    try:
-        last_pos = o.CurrentTrack.Duration - o.PlayerPosition
-        # LAST TRACK = THE TRACK THAT IS CURRENTLY PLAYED. IT MAKES SENSE IN
-        # CODE AS LAST_TRACK IS THE TRACK PLAYED {global_pause} SECONDS AGO
-        last_track = o.CurrentTrack.Name
-        track = o.CurrentTrack.Name
-        stopped = False
-    except Exception:
-        DiscordRPC.clear()
-        o = win32com.client.gencache.EnsureDispatch("iTunes.Application")
-        log_message("..........................................")
-        log_message(".    iTunes is not playing anything...   .")
-        log_message(". Waiting for it to play before starting .")
-        log_message(".           Waiting 10 seconds.          .")
-        log_message("..........................................")
-        time.sleep(10)
+    itrpc_window.get_logger(log_message)  # send the logger instance
+    # main cannot access the logger otherwise.
+    itrpc_window.send_logger()
+    # this sends the logger to window_test
+
+    # the window can be opened by requesting the window in the system tray
+    # show brief message telling user about this.
+    if config["show_msg"] is True:
+        itrpc_window.start_welcome()
 
 
-# LOOP VARIABLES
-special_push = False  # this is used to determine if another function has already pushed
-# to RPC, as we don't want to repeat for loads of different items.
+    # LOGGING
+    # first start: clean log messages and dump systeminfo
+    # none of this is automatically uploaded, but it should be
+    # sent within error reports on GitHub, as it may help determine
+    # your issue
+    os.remove("log")  # delete the old log file.
+    log_message("Starting system log dump.")
+    log_message("Machine Architecture: " + platform.machine())
+    log_message("Machine Version:" + platform.version())
+    log_message("Machine Platform: " + platform.platform())
+    log_message("Machine Unix Name: " + str(platform.uname()))
+    log_message("OS Type: " + platform.system())
+    log_message("Processor: " + platform.processor())
+    log_message(
+        "Total RAM: " + str(round(psutil.virtual_memory().total / (1024.0**3))) + " GB"
+    )
+    log_message("End of system logs.\n")
+    log_message("Starting iTunesRPC logs.")
 
-stopped = False  # track stopped (iTunes has no track selected)
-paused = False  # track paused (iTunes has a track selected)
-first_run = True  # first ran the program.
-shutdown_systray = False  # shutdown the program from the systray
-running = True  # run var
-skipped = False  # skipping song.
-toggled = True  # showing RP?
+
+    # SYSTRAY MENU OPTIONS AND MAKING THE ICON
+    menu_options = (
+        ("Show Window", None, itrpc_window.start),
+        ("Toggle Rich Presence", None, toggle_rpc),
+        ("Shutdown iTunesRPC Safely", None, exit_program),
+    )
+    systray = SysTrayIcon("icon.ico", "iTunesRPC", menu_options)
+    systray.start()
+    log_message("Started Systray icon.")
 
 
-# LOOP
-while running:
-    if toggled:
-        if first_run:
-            last_pos = o.CurrentTrack.Duration - o.PlayerPosition
-            time.sleep(global_pause)
-            first_run = False
+    # GETTING THE ITUNES COM CONNECTION
+    o = win32com.client.gencache.EnsureDispatch(
+        "iTunes.Application"
+    )  # connect to the COM of iTunes.Application
+    log_message("Hooked to iTunes COM.")
+    # NOTE: win32com.client.gencache.EnsureDispatch will force open the application if not already open
 
+
+    # CONNECTING TO DISCORD
+    DiscordRPC = False
+    opened = False
+    while DiscordRPC is False:
+        if shutdown_systray:
+            log_message("No connection to DiscordRPC, so not closing.")
+            systray.shutdown()
+            log_message("Shutdown the Systray icon.")
+            quit("Shutdown the Python program.")
         try:
-            placeholder = o.CurrentTrack.Name  # try to get current track name
+            DiscordRPC = pypresence.Presence(secret, pipe=0)
+            DiscordRPC.connect()
+            log_message("Hooked to Discord.")
         except Exception:
-            stopped = True
+            if not opened:
+                os.system(discord_command)
+                log_message("..........................................")
+                log_message(".           Discord is closed...         .")
+                log_message(". Waiting for it to open before starting .")
+                log_message(". Waiting global_pause+3 seconds before  .")
+                log_message(".               continuing.              .")
+                log_message("..........................................")
+                opened = True
+            time.sleep(
+                global_pause + 3
+            )  # takes a while to open discord on lower end hardware so account for that here
+            continue
 
-        if stopped is False:
-            log_message("------------------")
 
-            # update the last track to be the variable that was playing 5 seconds ago and
-            # get the new current track and store it as track
-            last_track = track
-            track = o.CurrentTrack.Name
-
-            log_message("Last Track: " + last_track)
-            log_message("Current Track: " + track)
-
-            log_message("Last Playhead Position: " + str(last_pos))
-            log_message(
-                "Current Playhead Position: "
-                + str((o.CurrentTrack.Duration - o.PlayerPosition))
-            )
-            log_message(
-                "Position Difference: "
-                + str(last_pos - (o.CurrentTrack.Duration - o.PlayerPosition))
-            )
-            log_message("Pushing the following info...")
-
-            if last_track != track:  # if we changed tracks.
-                special_push = True
-                skipped = True
-                log_message("Changed track. Getting regular fetch from push_playing.")
-                DiscordRPC, track, artist, album, last_pos, paused = push_playing(
-                    o, DiscordRPC, dict, last_pos, False, False
-                )
-
-            if not paused or not skipped:
-                if (
-                    last_pos - (o.CurrentTrack.Duration - o.PlayerPosition)
-                    < global_pause - 1
-                    and last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) >= 0
-                ):
-                    special_push = True
-                    # we are paused
-                    log_message("Paused. Sending pause message to RPC.")
-                    DiscordRPC, track, artist, album, last_pos, paused = push_playing(
-                        o, DiscordRPC, dict, last_pos, True, False
-                    )
-                else:
-                    paused = False
-
-                if (
-                    (last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < 0)
-                    or (
-                        last_pos - (o.CurrentTrack.Duration - o.PlayerPosition)
-                        > global_pause + 1
-                    )
-                ) and last_track == track:
-                    # we have rewound or fast forwarded within the song. let's make sure we account for that when calling push_playing
-                    # this could also happen when a new song has started. that is why last_track == track is in this if statement
-                    log_message(
-                        "Track position moved over global_pause value, likely skipped forward/backward in the song."
-                    )
-                    special_push = True
-                    DiscordRPC, track, artist, album, last_pos, paused = push_playing(
-                        o, DiscordRPC, dict, last_pos, False, True
-                    )
-
-                if special_push is False:
-                    DiscordRPC, track, artist, album, last_pos, paused = push_playing(
-                        o, DiscordRPC, dict, last_pos, False, False
-                    )
-            else:
-                skipped = False
-
-            special_push = False
-
-            # get the last position of the track. used for pause
+    # GET LAST POSITION OF TRACK
+    stopped = True
+    while stopped:
+        try:
             last_pos = o.CurrentTrack.Duration - o.PlayerPosition
-            time.sleep(global_pause)
-        else:
+            # LAST TRACK = THE TRACK THAT IS CURRENTLY PLAYED. IT MAKES SENSE IN
+            # CODE AS LAST_TRACK IS THE TRACK PLAYED {global_pause} SECONDS AGO
+            last_track = o.CurrentTrack.Name
+            track = o.CurrentTrack.Name
+            stopped = False
+        except Exception:
             DiscordRPC.clear()
-            try:
-                del o
-            except Exception:
-                pass
             o = win32com.client.gencache.EnsureDispatch("iTunes.Application")
             log_message("..........................................")
             log_message(".    iTunes is not playing anything...   .")
@@ -420,42 +305,157 @@ while running:
             log_message("..........................................")
             time.sleep(10)
 
-            stopped = False
+
+    # LOOP VARIABLES
+    special_push = False  # this is used to determine if another function has already pushed
+    # to RPC, as we don't want to repeat for loads of different items.
+
+    stopped = False  # track stopped (iTunes has no track selected)
+    paused = False  # track paused (iTunes has a track selected)
+    first_run = True  # first ran the program.
+    shutdown_systray = False  # shutdown the program from the systray
+    running = True  # run var
+    skipped = False  # skipping song.
+    toggled = True  # showing RP?
+
+
+    # LOOP
+    while running:
+        if toggled:
+            if first_run:
+                last_pos = o.CurrentTrack.Duration - o.PlayerPosition
+                time.sleep(global_pause)
+                first_run = False
+
             try:
-                track = o.CurrentTrack.Name
-            except Exception as e:
-                log_message(e)
+                placeholder = o.CurrentTrack.Name  # try to get current track name
+            except Exception:
                 stopped = True
 
-        if shutdown_systray:
-            running = False
-            log_message("------------------")
-            log_message("Shutting down.")
-    else:
-        log_message("RPC is toggled off. Not showing status.")
-        log_message("Waiting 1 second to check if toggled is enabled.")
-        time.sleep(1)
+            if stopped is False:
+                log_message("------------------")
+
+                # update the last track to be the variable that was playing 5 seconds ago and
+                # get the new current track and store it as track
+                last_track = track
+                track = o.CurrentTrack.Name
+
+                log_message("Last Track: " + last_track)
+                log_message("Current Track: " + track)
+
+                log_message("Last Playhead Position: " + str(last_pos))
+                log_message(
+                    "Current Playhead Position: "
+                    + str((o.CurrentTrack.Duration - o.PlayerPosition))
+                )
+                log_message(
+                    "Position Difference: "
+                    + str(last_pos - (o.CurrentTrack.Duration - o.PlayerPosition))
+                )
+                log_message("Pushing the following info...")
+
+                if last_track != track:  # if we changed tracks.
+                    special_push = True
+                    skipped = True
+                    log_message("Changed track. Getting regular fetch from push_playing.")
+                    DiscordRPC, track, artist, album, last_pos, paused = push_playing(
+                        o, DiscordRPC, dict, last_pos, False, False
+                    )
+
+                if not paused or not skipped:
+                    if (
+                        last_pos - (o.CurrentTrack.Duration - o.PlayerPosition)
+                        < global_pause - 1
+                        and last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) >= 0
+                    ):
+                        special_push = True
+                        # we are paused
+                        log_message("Paused. Sending pause message to RPC.")
+                        DiscordRPC, track, artist, album, last_pos, paused = push_playing(
+                            o, DiscordRPC, dict, last_pos, True, False
+                        )
+                    else:
+                        paused = False
+
+                    if (
+                        (last_pos - (o.CurrentTrack.Duration - o.PlayerPosition) < 0)
+                        or (
+                            last_pos - (o.CurrentTrack.Duration - o.PlayerPosition)
+                            > global_pause + 1
+                        )
+                    ) and last_track == track:
+                        # we have rewound or fast forwarded within the song. let's make sure we account for that when calling push_playing
+                        # this could also happen when a new song has started. that is why last_track == track is in this if statement
+                        log_message(
+                            "Track position moved over global_pause value, likely skipped forward/backward in the song."
+                        )
+                        special_push = True
+                        DiscordRPC, track, artist, album, last_pos, paused = push_playing(
+                            o, DiscordRPC, dict, last_pos, False, True
+                        )
+
+                    if special_push is False:
+                        DiscordRPC, track, artist, album, last_pos, paused = push_playing(
+                            o, DiscordRPC, dict, last_pos, False, False
+                        )
+                else:
+                    skipped = False
+
+                special_push = False
+
+                # get the last position of the track. used for pause
+                last_pos = o.CurrentTrack.Duration - o.PlayerPosition
+                time.sleep(global_pause)
+            else:
+                DiscordRPC.clear()
+                try:
+                    del o
+                except Exception:
+                    pass
+                o = win32com.client.gencache.EnsureDispatch("iTunes.Application")
+                log_message("..........................................")
+                log_message(".    iTunes is not playing anything...   .")
+                log_message(". Waiting for it to play before starting .")
+                log_message(".           Waiting 10 seconds.          .")
+                log_message("..........................................")
+                time.sleep(10)
+
+                stopped = False
+                try:
+                    track = o.CurrentTrack.Name
+                except Exception as e:
+                    log_message(e)
+                    stopped = True
+
+            if shutdown_systray:
+                running = False
+                log_message("------------------")
+                log_message("Shutting down.")
+        else:
+            log_message("RPC is toggled off. Not showing status.")
+            log_message("Waiting 1 second to check if toggled is enabled.")
+            time.sleep(1)
 
 
-# SHUTDOWN
-DiscordRPC.close()
-log_message("Closed connection to DiscordRPC.")
+    # SHUTDOWN
+    DiscordRPC.close()
+    log_message("Closed connection to DiscordRPC.")
 
-systray.shutdown()
-log_message("Shutdown the Systray icon.")
+    systray.shutdown()
+    log_message("Shutdown the Systray icon.")
 
-o.Quit()
-log_message("Closed iTunes connection.")
+    o.Quit()
+    log_message("Closed iTunes connection.")
 
-p = open("config", "r")
-prev = ast.literal_eval(p.read())
-p.close()
-prev["gui_window_isOpen"] = False
-update = open("config", "w")
-update.write(str(prev))
-update.close()
-log_message(
-    "Set GUI isOpen to False to ensure we don't get hanging on next open."
-)  # If this value is left as true, on the next launch of the app, it is possible that the window will freeze.
+    p = open("config", "r")
+    prev = ast.literal_eval(p.read())
+    p.close()
+    prev["gui_window_isOpen"] = False
+    update = open("config", "w")
+    update.write(str(prev))
+    update.close()
+    log_message(
+        "Set GUI isOpen to False to ensure we don't get hanging on next open."
+    )  # If this value is left as true, on the next launch of the app, it is possible that the window will freeze.
 
-sys.exit(log_message("Shutdown application."))
+    sys.exit(log_message("Shutdown application."))
