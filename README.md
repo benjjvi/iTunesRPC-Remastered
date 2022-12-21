@@ -1,4 +1,11 @@
 # iTunesRPC-Remastered
+
+## ARCHIVED
+As of 21st December 2022, this project has been archived. The main reason is that I simply do not use Windows or Discord anymore. Thanks to anyone who helped with this!
+
+
+### Old README
+
 Discord Rich Presence for iTunes on Windows.
 
 ![The application in use.](/docs/a.png)
